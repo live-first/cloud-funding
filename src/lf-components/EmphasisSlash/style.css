@@ -1,0 +1,20 @@
+.emphasis-slash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.emphasis-slash::before,
+.emphasis-slash::after {
+  content: '';
+  width: 20px;
+  height: 2px;
+  border-radius: 5px;
+  background-color: var(--color-default);
+  margin: 0px 4px 4px;
+}
+.emphasis-slash::before {
+  transform: rotate(50deg);
+}
+.emphasis-slash::after {
+  transform: rotate(-50deg);
+}

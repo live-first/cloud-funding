@@ -1,0 +1,38 @@
+.switch-input {
+  /* チェックボックスは使わないので非表示 */
+  display: none;
+}
+
+.switch-input:checked + label {
+  /* スイッチONの時のSwitchの背景色*/
+  background-color: var(--color-default);
+}
+
+.switch-input:checked + .switch-label::before {
+  /* スイッチONの時の左側余白 */
+  left: 1.4em;
+}
+
+.switch-label {
+  position: relative;
+  background-color: #e9e9ea; /* スイッチOFF時の背景色 */
+  border-radius: 1em; /* 角丸 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  width: 2.75em;
+  height: 1.4em;
+  transition: 0.2s;
+}
+
+.switch-label::before {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 0.85em;
+  content: '';
+  width: 1.2em;
+  height: 1.2em;
+  left: 0.15em;
+  transition: 0.2s ease-out;
+}

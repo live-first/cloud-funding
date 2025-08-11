@@ -1,0 +1,26 @@
+.input-text-sm {
+  font-size: small;
+}
+.input-text-md {
+  font-size: medium;
+}
+.input-text-lg {
+  font-size: large;
+}
+.input-text-xl {
+  font-size: x-large;
+}
+textarea {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-foreground);
+}
+textarea.error {
+  border: 1px solid var(--color-error);
+}
+textarea:focus {
+  border: 1px solid var(--color-default);
+}
+textarea:disabled {
+  border: 1px solid var(--color-disable);
+  background-color: #d4d4d4;
+}

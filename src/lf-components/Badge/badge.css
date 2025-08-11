@@ -1,0 +1,29 @@
+.badge-attention {
+  background-color: #ffb217;
+  color: #ffffff;
+}
+.badge-error {
+  background-color: #ff0000;
+  color: #ffffff;
+}
+.badge-info {
+  background-color: #058fff;
+  color: #ffffff;
+}
+.badge-warning {
+  background-color: #f6ff00;
+  color: #ffb217;
+}
+
+.badge-sm {
+  font-size: 1em;
+}
+.badge-md {
+  font-size: 1.5em;
+}
+.badge-lg {
+  font-size: 2em;
+}
+.badge-xl {
+  font-size: 2.5em;
+}

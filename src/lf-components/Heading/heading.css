@@ -1,0 +1,44 @@
+.h1 {
+}
+.h1-label {
+  font-size: 3.5rem;
+}
+
+.h2 {
+}
+.h2-label {
+  font-size: 3rem;
+}
+
+.h3 {
+  border-radius: 10px;
+  background-color: var(--color-default);
+  padding: 0 10px;
+}
+.h3-label {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.h4 {
+  border-left: 5px var(--color-default) solid;
+  padding: 0 10px;
+}
+.h4-label {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.h5 {
+  border-bottom: 2px var(--color-default) solid;
+  padding: 0 10px;
+}
+.h5-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.h6-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+}

@@ -1,0 +1,26 @@
+.input-text-sm {
+  font-size: small;
+}
+.input-text-md {
+  font-size: medium;
+}
+.input-text-lg {
+  font-size: large;
+}
+.input-text-xl {
+  font-size: x-large;
+}
+input {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-foreground);
+}
+input.error {
+  border: 1px solid var(--color-error);
+}
+input:focus {
+  border: 1px solid var(--color-default);
+}
+input:disabled {
+  border: 1px solid var(--color-disable);
+  background-color: #d4d4d4;
+}

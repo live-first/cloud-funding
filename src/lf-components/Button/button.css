@@ -1,0 +1,36 @@
+.button {
+  cursor: pointer;
+}
+
+.button-sm {
+  font-size: 15px;
+}
+.button-md {
+  font-size: 20px;
+}
+.button-lg {
+  font-size: 25px;
+}
+
+.button-Primary {
+  background-color: var(--color-primary);
+}
+.button-Primary:hover {
+  opacity: 0.8;
+}
+.button-Secondary {
+  background-color: var(--color-secondary);
+}
+.button-Secondary:hover {
+  opacity: 0.8;
+}
+.button-Tertiary {
+  background-color: var(--color-tertiary);
+}
+.button-Tertiary:hover {
+  opacity: 0.8;
+}
+.button:disabled {
+  cursor: not-allowed !important;
+  background-color: #b9b9b9 !important;
+}

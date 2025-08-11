@@ -1,0 +1,20 @@
+.panel {
+  box-shadow: 1px 1px 5px 1px #0f0f0f63;
+}
+
+.panel-sm {
+  padding: 4px;
+  border-radius: 5px;
+}
+.panel-md {
+  padding: 8px;
+  border-radius: 10px;
+}
+.panel-lg {
+  padding: 12px;
+  border-radius: 12px;
+}
+.panel-xl {
+  padding: 16px;
+  border-radius: 24px;
+}

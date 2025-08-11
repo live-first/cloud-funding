@@ -1,0 +1,22 @@
+.toggle-btn-header > button:active {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.toggle-btn-header > .wd-1 {
+  width: calc(100%);
+}
+.toggle-btn-header > .wd-2 {
+  width: calc(100% / 2);
+}
+.toggle-btn-header > .wd-3 {
+  width: calc(100% / 3);
+}
+.toggle-btn-header > .wd-4 {
+  width: calc(100% / 4);
+}
+.toggle-btn-header > .wd-5 {
+  width: calc(100% / 5);
+}
+.toggle-btn-header > .wd-6 {
+  width: calc(100% / 6);
+}

@@ -1,0 +1,9 @@
+.link {
+  color: #3048ff;
+}
+.link:hover {
+  color: #6174ff;
+}
+.link-external {
+  transform: translateY(3px);
+}
