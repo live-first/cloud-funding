@@ -2,6 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { axios } from './baseApi'
+import { Domain } from '@/domain/domain'
 
 export const useDomainApi = () => {
   const queryClient = useQueryClient()
@@ -9,7 +10,7 @@ export const useDomainApi = () => {
   const getDomains = useQuery({
     queryKey: ['domain'],
     queryFn: async () => {
-      return (await axios.get('/domain')).data
+      return (await axios.get('/domain')).data as Domain[]
     },
   })
 

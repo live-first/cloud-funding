@@ -1,6 +1,6 @@
 import { cn } from '../utils'
 
-type Options = {
+export type Options = {
   value: string
   label: string
 }
