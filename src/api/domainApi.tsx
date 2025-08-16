@@ -1,3 +1,5 @@
+'use client'
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { axios } from './baseApi'
 
@@ -5,18 +7,18 @@ export const useDomainApi = () => {
   const queryClient = useQueryClient()
 
   const getDomains = useQuery({
-    queryKey: ['domains'],
+    queryKey: ['domain'],
     queryFn: async () => {
-      return axios.get('/domains')
+      return (await axios.get('/domain')).data
     },
   })
 
   const addDomain = useMutation({
     mutationFn: (domain: string) => {
-      return axios.post('/domains', domain)
+      return axios.post('/domain', domain)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['domains'] })
+      queryClient.invalidateQueries({ queryKey: ['domain'] })
     },
   })
 
