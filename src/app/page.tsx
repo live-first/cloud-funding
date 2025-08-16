@@ -1,7 +1,8 @@
-import { SingleViewLayout } from '@/lf-layouts/SingleViewLayout'
-import { GlobalHeader } from '@/lf-templates/header/GlobalHeader'
+import { LeftMenuLayout } from '@/lf-layouts/LeftMenuLayout'
+import { GlobalHeader } from '@/lf-views/header/GlobalHeader'
 import { HomeView } from '@/lf-views/home'
+import { LeftMenuView } from '@/lf-views/leftMenu'
 
 export default function Home() {
-  return <SingleViewLayout header={<GlobalHeader />} main={<HomeView />} />
+  return <LeftMenuLayout header={<GlobalHeader />} left={<LeftMenuView />} main={<HomeView />} />
 }
