@@ -3,8 +3,12 @@ import { GlobalHeader } from '@/lf-views/header/GlobalHeader'
 import { HomeView } from '@/lf-views/home'
 import { LeftMenuView } from '@/lf-views/leftMenu'
 
-export default function Home() {
+export default function News() {
   return (
-    <LeftMenuLayout header={<GlobalHeader />} left={<LeftMenuView url='/' />} main={<HomeView />} />
+    <LeftMenuLayout
+      header={<GlobalHeader />}
+      left={<LeftMenuView url='/news' />}
+      main={<HomeView />}
+    />
   )
 }

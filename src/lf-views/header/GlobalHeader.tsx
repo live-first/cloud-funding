@@ -1,3 +1,5 @@
+'use client'
+
 import { Header } from '@/lf-templates/header'
 import Link from 'next/link'
 import { HiOutlineUser, HiOutlineCog } from 'react-icons/hi'
