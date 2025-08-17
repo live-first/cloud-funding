@@ -7,10 +7,11 @@ type ButtonProps = {
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
   className?: string
+  type?: 'submit' | 'reset' | 'button' | undefined
 }
 
 export const Button = (props: ButtonProps) => {
-  const { variant = 'Primary', label, size = 'md', disabled = false, className } = props
+  const { variant = 'Primary', label, size = 'md', disabled = false, className, type } = props
   return (
     <button
       className={cn(
@@ -18,6 +19,7 @@ export const Button = (props: ButtonProps) => {
         className,
       )}
       disabled={disabled}
+      type={type}
     >
       {label}
     </button>

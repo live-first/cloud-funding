@@ -2,17 +2,21 @@ import { z } from 'zod'
 
 export const title: z.ZodString = z.string().max(40, { message: '40文字以内で入力してください' })
 
+export const context: z.ZodString = z
+  .string()
+  .min(1, { message: '入力が必須の項目です' })
+  .max(255, { message: '255文字以内で入力してください' })
+
 export const company: z.ZodString = z.string().max(50, { message: '50文字以内で入力してください' })
 
-export const name: z.ZodString = z
+export const twentyString: z.ZodString = z
   .string()
   .min(1, { message: '入力が必須の項目です' })
-  .max(255, { message: '20文字以内で入力してください' })
+  .max(20, { message: '20文字以内で入力してください' })
 
-export const kana: z.ZodString = z
-  .string()
-  .min(1, { message: '入力が必須の項目です' })
-  .max(255, { message: '20文字以内で入力してください' })
+export const stringArray: z.ZodArray<z.ZodString> = z.array(z.string())
+
+export const datetime: z.ZodDate = z.date()
 
 export const email: z.ZodString = z
   .string()
@@ -51,9 +55,7 @@ export const url: z.ZodString = z
 
 export const contactType: z.ZodString = z.string().max(256, { message: '入力値が長すぎます' })
 
-export const freeword: z.ZodString = z
-  .string()
-  .max(512, { message: '入力値が長すぎます' })
+export const freeword: z.ZodString = z.string().max(512, { message: '入力値が長すぎます' })
 
 export const live: z.ZodArray<z.ZodString> = z
   .array(z.string())

@@ -8,6 +8,6 @@ export type NewsType = {
   open: Date | null
   close: Date | null
   category: string[] | null
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
