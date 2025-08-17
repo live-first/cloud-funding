@@ -1,5 +1,5 @@
 export const useStore = (key: string) => {
-  const getItem = (key: string) => {
+  const getItem = () => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(key)
     }

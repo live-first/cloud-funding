@@ -1,15 +1,13 @@
-import { ImgType } from "./img"
-
-type UrlType = {
-  title: string
-  url: string
-}
-
 export type NewsType = {
   id: number
-  date: string
   title: string
   context: string[]
-  urls: UrlType[]
-  img: ImgType[]
+  img: string[] | null
+  files: string[] | null
+  domains: string[]
+  open: Date | null
+  close: Date | null
+  category: string[] | null
+  createdAt: Date
+  updatedAt: Date
 }

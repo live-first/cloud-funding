@@ -23,13 +23,13 @@ export const GlobalHeader = () => {
           value={domain}
           label='ドメイン'
           onChange={(e) => {
-            store.setItem(e.target.value ?? 0)
+            store.setItem(domains?.find((domain) => domain.id === e.target.value)?.domain as string)
             setDomain(e.target.value)
           }}
         >
           <MenuItem value={0}>選択してください</MenuItem>
           {domains?.map((domain, index) => (
-            <MenuItem value={domain.domain} key={index}>
+            <MenuItem value={domain.id} key={index}>
               {domain.domain}
             </MenuItem>
           ))}
