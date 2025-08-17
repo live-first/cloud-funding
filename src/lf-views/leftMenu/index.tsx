@@ -22,7 +22,7 @@ export const LeftMenuView = (props: { url: string }) => {
           <Link
             href={menu.url}
             key={index}
-            className={cn('w-full', props.url === menu.url ? 'bg-blue-400' : '')}
+            className={cn('w-full', props.url === menu.url ? 'bg-blue-400' : 'hover:bg-blue-100')}
           >
             <div className={cn('p-2 flex border-b border-gray-500')}>{menu.label}</div>
           </Link>

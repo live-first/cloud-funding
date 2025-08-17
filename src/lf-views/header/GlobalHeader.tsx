@@ -3,14 +3,16 @@
 import { useDomainApi } from '@/api/domainApi'
 import { Header } from '@/lf-templates/header'
 import { useStore } from '@/store/useStore'
-import { Select } from '@mui/material'
+import { MenuItem, Select } from '@mui/material'
 import Link from 'next/link'
+import { useState } from 'react'
 import { HiOutlineUser, HiOutlineCog } from 'react-icons/hi'
 
 export const GlobalHeader = () => {
   const DomainSelect = () => {
     const { getDomains } = useDomainApi()
     const store = useStore('domain')
+    const [domain, setDomain] = useState<number>(0)
 
     const domains = getDomains.data
 
@@ -18,16 +20,18 @@ export const GlobalHeader = () => {
       <div>
         <Select
           id='domain'
-          value={store.getItem('domain')}
-          label='Age'
+          value={domain}
+          label='ドメイン'
           onChange={(e) => {
-            store.setItem(e.target)
+            store.setItem(e.target.value ?? 0)
+            setDomain(e.target.value)
           }}
         >
+          <MenuItem value={0}>選択してください</MenuItem>
           {domains?.map((domain, index) => (
-            <option value={domain.id} key={index}>
+            <MenuItem value={domain.domain} key={index}>
               {domain.domain}
-            </option>
+            </MenuItem>
           ))}
         </Select>
       </div>
