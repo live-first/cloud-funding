@@ -2,19 +2,21 @@
 
 import { useDomainApi } from '@/api/domainApi'
 import { Header } from '@/lf-templates/header'
+import Link from 'next/link'
+import { HiOutlineUser, HiOutlineCog } from 'react-icons/hi'
+import { useState } from 'react'
 import { useStore } from '@/store/useStore'
 import { MenuItem, Select } from '@mui/material'
-import Link from 'next/link'
-import { useState } from 'react'
-import { HiOutlineUser, HiOutlineCog } from 'react-icons/hi'
 
 export const GlobalHeader = () => {
+
   const DomainSelect = () => {
     const { getDomains } = useDomainApi()
-    const store = useStore('domain')
-    const [domain, setDomain] = useState<number>(0)
-
     const domains = getDomains.data
+    const store = useStore('domain')
+    const initValue =
+      domains?.find((item) => item.domain === store.getItem()?.replace(/^"(.*)"$/, '$1'))?.id ?? 0
+    const [domain, setDomain] = useState<number>(initValue)
 
     return (
       <div>

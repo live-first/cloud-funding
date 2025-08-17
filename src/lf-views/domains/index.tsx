@@ -4,6 +4,7 @@ import { useDomainApi } from '@/api/domainApi'
 import { Domain } from '@/domain/domain'
 import { Heading } from '@/lf-components/Heading'
 
+
 export const DomainsView = () => {
   const { getDomains } = useDomainApi()
 
@@ -13,7 +14,7 @@ export const DomainsView = () => {
       <Heading tag={4} label='ドメイン管理' />
       <table>
         <thead>
-          <th>#</th>
+          <th>id</th>
           <th>domain</th>
         </thead>
         <tbody>
