@@ -6,27 +6,17 @@ import { TextFieldForm } from '@/lf-templates/form/TextFieldForm'
 import { useStore } from '@/store/useStore'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { Button } from '@/lf-components/Button'
-import { context, datetime, stringArray, title } from '@/domain/schema'
+
 import { TextAreaForm } from '@/lf-templates/form/TextAreaForm'
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { NewsRequestType, NewsSchema } from '@/domain/news'
 
 export const NewsCreateView = () => {
   const domainStore = useStore('domain')
   const { addNews } = useNewsApi(domainStore.getItem()?.replace(/^"(.*)"$/, '$1') as string)
-  const NewsSchema = z.object({
-    title: title,
-    context: context,
-    domains: stringArray,
-    open: datetime,
-    close: datetime,
-    category: stringArray,
-  })
 
-  type NewsType = z.infer<typeof NewsSchema>
-
-  const onClickHandler = async (data: NewsType) => {
+  const onClickHandler = (data: NewsRequestType) => {
     addNews.mutate(data)
   }
 
@@ -34,7 +24,7 @@ export const NewsCreateView = () => {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-  } = useForm<NewsType>({
+  } = useForm<NewsRequestType>({
     mode: 'onChange',
     resolver: zodResolver(NewsSchema),
   })
@@ -57,8 +47,8 @@ export const NewsCreateView = () => {
             register={register('context')}
             error={errors.context?.message}
           />
-          <DateTimePicker label="公開日時" />
-          <DateTimePicker label="非公開日時" />
+          <DateTimePicker label='公開日時' />
+          <DateTimePicker label='非公開日時' />
           <Button label='作成する' type='submit' disabled={!isValid || isSubmitting} />
         </div>
       </form>
