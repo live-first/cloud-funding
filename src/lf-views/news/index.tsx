@@ -4,11 +4,12 @@ import { useNewsApi } from '@/api/newsApi'
 import { Button } from '@/lf-components/Button'
 import { Heading } from '@/lf-components/Heading'
 import { useStore } from '@/store/useStore'
+import stringUtils from '@/utils/stringUtils'
 import Link from 'next/link'
 
 export const NewsView = () => {
   const domainStore = useStore('domain')
-  const { getNews } = useNewsApi(domainStore.getItem()?.replace(/^"(.*)"$/, '$1') as string)
+  const { getNews } = useNewsApi(stringUtils().removeQuotation(domainStore.getItem() as string))
   const news = getNews.data
   return (
     <div className='flex flex-col p-6 gap-4'>

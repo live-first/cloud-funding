@@ -16,7 +16,7 @@ export const useCategoryApi = () => {
 
   const addCategory = useMutation({
     mutationFn: (data: string) => {
-      return axios.post('/category', data)
+      return axios.post('/category', { label: data })
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['category'] })

@@ -17,7 +17,9 @@ export const NewsCreateView = () => {
   const { addNews } = useNewsApi(domainStore.getItem()?.replace(/^"(.*)"$/, '$1') as string)
 
   const onClickHandler = (data: NewsRequestType) => {
-    addNews.mutate(data)
+    addNews.mutateAsync(data).then(() => {
+      window.alert('CREATED!!')
+    })
   }
 
   const {
@@ -47,8 +49,8 @@ export const NewsCreateView = () => {
             register={register('context')}
             error={errors.context?.message}
           />
-          <DateTimePicker label='公開日時' />
-          <DateTimePicker label='非公開日時' />
+          <DateTimePicker label='公開日時' onChange={() => {}} />
+          <DateTimePicker label='非公開日時' onChange={() => {}} />
           <Button label='作成する' type='submit' disabled={!isValid || isSubmitting} />
         </div>
       </form>

@@ -12,7 +12,9 @@ export const CategoryCreateView = () => {
   const { addCategory } = useCategoryApi()
 
   const onClickHandler = (data: CategoryType) => {
-    addCategory.mutate(data.label)
+    addCategory.mutateAsync(data.label).then(() => {
+      window.alert('CREATED!!')
+    })
   }
 
   const {
