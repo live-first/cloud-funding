@@ -25,7 +25,9 @@ export const CategoriesView = () => {
           {getCategories.data?.map((item, index) => (
             <tr key={index}>
               <th>{item.id}</th>
-              <td>{item.label}</td>
+              <td>
+                <Link href={`/categories/update?id=${item.id}`}>{item.label}</Link>
+              </td>
             </tr>
           ))}
         </tbody>

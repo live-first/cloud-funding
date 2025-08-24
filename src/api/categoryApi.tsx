@@ -25,7 +25,7 @@ export const useCategoryApi = () => {
 
   const updateCategory = useMutation({
     mutationFn: (data: CategoryType) => {
-      return axios.put(`/category?id=${data.id}`, data.label)
+      return axios.put(`/category/${data.id}`, { label: data.label })
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['category'] })
