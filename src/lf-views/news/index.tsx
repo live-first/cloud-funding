@@ -1,5 +1,6 @@
 'use client'
 
+import { useCategoryApi } from '@/api/categoryApi'
 import { useNewsApi } from '@/api/newsApi'
 import { Button } from '@/lf-components/Button'
 import { Heading } from '@/lf-components/Heading'
@@ -11,6 +12,8 @@ export const NewsView = () => {
   const domainStore = useStore('domain')
   const { getNews } = useNewsApi(stringUtils().removeQuotation(domainStore.getItem() as string))
   const news = getNews.data
+  const { getCategories } = useCategoryApi()
+
   return (
     <div className='flex flex-col p-6 gap-4'>
       <Heading tag={4} label='お知らせ管理' />
@@ -44,11 +47,13 @@ export const NewsView = () => {
               <td></td>
               <td>
                 {item.category?.map((cate, index) => (
-                  <span key={index}>{cate}</span>
+                  <span key={index}>
+                    {getCategories.data?.find((gCate) => gCate.id === Number(cate))?.label}
+                  </span>
                 ))}
               </td>
-              <td>{}</td>
-              <td>{}</td>
+              <td>{item.createdAt}</td>
+              <td>{item.updatedAt}</td>
             </tr>
           ))}
         </tbody>

@@ -1,4 +1,4 @@
-import { context, stringArray, title } from '@/domain/schema'
+import { context, numberArray, stringArray, title } from '@/domain/schema'
 import { z } from 'zod'
 
 export type NewsType = {
@@ -10,17 +10,20 @@ export type NewsType = {
   domains: string[]
   open: Date | null
   close: Date | null
-  category: string[] | null
+  category: number[] | null
   createdAt: string
   updatedAt: string
 }
 
 export const NewsSchema = z.object({
-  id: z.number().nullable(),
   title: title,
   context: context,
-  domains: stringArray.nullable(),
-  category: stringArray.nullable(),
+  img: stringArray.optional(),
+  files: stringArray.optional(),
+  domains: stringArray.optional(),
+  open: z.string().nullable(),
+  close: z.string().nullable(),
+  category: numberArray.optional(),
 })
 
 export type NewsRequestType = z.infer<typeof NewsSchema>

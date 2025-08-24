@@ -29,6 +29,7 @@ export const CategoryCreateView = () => {
       label: '',
     },
   })
+
   return (
     <div className='flex flex-col p-6 gap-4'>
       <Heading tag={4} label='カテゴリ作成' />

@@ -37,14 +37,14 @@ export const LeftMenuLayout = (props: LayoutProps) => {
           <button
             className={cn(
               open ? 'absolute w-80 bottom-0 left-0' : 'hidden',
-              'w-full h-12 text-center text-4xl bg-gray-100',
+              'w-full h-12 text-center justify-center text-4xl bg-gray-100',
             )}
             onClick={() => isOpen(false)}
           >
             <HiChevronLeft />
           </button>
         </div>
-        <div className='flex flex-col pt-16'>
+        <div className='flex flex-col w-full mt-16 overflow-scroll'>
           {main}
         </div>
       </main>
