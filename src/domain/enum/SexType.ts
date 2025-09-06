@@ -1,4 +1,4 @@
-const Sex = {
+export const Sex = {
   other: 0,
   mens: 1,
   ladies: 2,
