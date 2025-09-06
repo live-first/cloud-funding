@@ -22,31 +22,27 @@ export const LeftMenuLayout = (props: LayoutProps) => {
         <div
           className={cn(
             open ? 'w-80' : 'w-14',
-            'flex flex-col h-dvh bg-gray-100 border-r border-gray-500 relative',
+            'flex flex-col h-dvh bg-gray-100 border-r border-gray-500 fixed',
           )}
         >
           {open ? (
-            <div className='flex w-full h-full pt-16'>
-              {left}
-            </div>
+            <div className='flex w-full h-full pt-16'>{left}</div>
           ) : (
-            <button className='w-full h-full  text-4xl' onClick={() => isOpen(true)}>
+            <button className='w-full h-full justify-items-center text-4xl' onClick={() => isOpen(true)}>
               <HiChevronRight />
             </button>
           )}
           <button
             className={cn(
               open ? 'absolute w-80 bottom-0 left-0' : 'hidden',
-              'w-full h-12 text-center justify-center text-4xl bg-gray-100',
+              'w-full h-12 text-center justify-items-center text-4xl bg-gray-200',
             )}
             onClick={() => isOpen(false)}
           >
             <HiChevronLeft />
           </button>
         </div>
-        <div className='flex flex-col w-full mt-16 overflow-scroll'>
-          {main}
-        </div>
+        <div className={cn('flex flex-col w-full mt-16', open ? 'ml-80' : 'ml-14',)}>{main}</div>
       </main>
       <footer>{footer}</footer>
     </>
