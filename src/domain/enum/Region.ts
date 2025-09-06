@@ -13,16 +13,40 @@
  * OKINAWA: 沖縄
  */
 export const Region = {
-  HOKKAIDO: 0,
-  TOHOKU: 1,
-  KANTO: 2,
-  HOKURIKU: 3,
-  CHUBU: 4,
-  KINKI: 5,
-  CHUGOKU: 6,
-  SHIKOKU: 7,
-  KYUSHU: 8,
-  OKINAWA: 9,
+  HOKKAIDO: 'HOKKAIDO',
+  TOHOKU: 'TOHOKU',
+  KANTO: 'KANTO',
+  HOKURIKU: 'HOKURIKU',
+  CHUBU: 'CHUBU',
+  KINKI: 'KINKI',
+  CHUGOKU: 'CHUGOKU',
+  SHIKOKU: 'SHIKOKU',
+  KYUSHU: 'KYUSHU',
+  OKINAWA: 'OKINAWA',
 } as const
 
 export type Region = (typeof Region)[keyof typeof Region]
+
+export const regionToString = (key?: string) => {
+  return key === Region.HOKKAIDO
+    ? '北海道'
+    : key === Region.TOHOKU
+    ? '東北'
+    : key === Region.KANTO
+    ? '関東'
+    : key === Region.HOKURIKU
+    ? '北陸'
+    : key === Region.CHUBU
+    ? '中部'
+    : key === Region.KINKI
+    ? '近畿'
+    : key === Region.CHUGOKU
+    ? '中国'
+    : key === Region.SHIKOKU
+    ? '四国'
+    : key === Region.KYUSHU
+    ? '九州'
+    : key === Region.OKINAWA
+    ? '沖縄'
+    : ''
+}

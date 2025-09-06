@@ -10,12 +10,12 @@ export const AuditionSchema = z.object({
   subtitle: z.string().max(100, { message: '100文字以内で入力してください' }),
   img: stringArray.optional(),
   deadline: z.string().nullable(),
-  auditionCategory: z.number().optional(),
+  auditionCategory: z.string().optional(),
   outline: z
     .string()
     .min(1, { message: '入力が必須の項目です' })
     .max(250, { message: '250文字以内で入力してください' }),
-  region: z.number().optional(),
+  region: z.string().optional(),
   entryMethod: z
     .string()
     .min(1, { message: '入力が必須の項目です' })
@@ -37,7 +37,7 @@ export const AuditionSchema = z.object({
   email: email,
   organizer: company,
   hp: url,
-  status: z.number().optional(),
+  status: z.string().optional(),
 })
 
 export type AuditionType = z.infer<typeof AuditionSchema>

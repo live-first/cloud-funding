@@ -90,7 +90,7 @@ export const AuditionCreateView = () => {
               },
             ]}
             onChange={(e) => {
-              setValue('auditionCategory', Number(e.target.value))
+              setValue('auditionCategory', e.target.value)
             }}
           />
           <TextAreaForm
@@ -149,7 +149,7 @@ export const AuditionCreateView = () => {
               },
             ]}
             onChange={(e) => {
-              setValue('region', Number(e.target.value))
+              setValue('region', e.target.value)
             }}
           />
           <TextAreaForm

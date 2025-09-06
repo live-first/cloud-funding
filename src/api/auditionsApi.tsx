@@ -5,7 +5,7 @@ import { axios } from './baseApi'
 import { AuditionResponseType, AuditionType } from '@/domain/audition'
 import { StatusRequest } from '@/domain/enum/Status'
 
-export const useAuditionApi = () => {
+export const useAuditionApi = (id?: number) => {
   const queryClient = useQueryClient()
 
   const getAuditions = useQuery({
@@ -13,6 +13,14 @@ export const useAuditionApi = () => {
     queryFn: async () => {
       return (await axios.get(`/audition/all`)).data as AuditionResponseType[]
     },
+  })
+
+  const getAudition = useQuery({
+    queryKey: ['audition', id],
+    queryFn: async () => {
+      return (await axios.get(`/audition/${id}`)).data as AuditionResponseType
+    },
+    enabled: !!id,
   })
 
   const addAudition = useMutation({
@@ -44,6 +52,7 @@ export const useAuditionApi = () => {
 
   return {
     getAuditions,
+    getAudition,
     addAudition,
     updateAudition,
     updateStatus,

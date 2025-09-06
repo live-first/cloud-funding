@@ -8,10 +8,19 @@ type ButtonProps = {
   disabled?: boolean
   className?: string
   type?: 'submit' | 'reset' | 'button' | undefined
+  onClick?: () => void
 }
 
 export const Button = (props: ButtonProps) => {
-  const { variant = 'Primary', label, size = 'md', disabled = false, className, type } = props
+  const {
+    variant = 'Primary',
+    label,
+    size = 'md',
+    disabled = false,
+    className,
+    type,
+    onClick,
+  } = props
   return (
     <button
       className={cn(
@@ -20,6 +29,7 @@ export const Button = (props: ButtonProps) => {
       )}
       disabled={disabled}
       type={type}
+      onClick={onClick}
     >
       {label}
     </button>

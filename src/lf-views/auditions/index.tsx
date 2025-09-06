@@ -33,7 +33,9 @@ export const AuditionsView = () => {
           {auditions?.map((item, index) => (
             <tr key={index}>
               <td>{item.id}</td>
-              <td>{item.title}</td>
+              <td>
+                <Link href={`/auditions/${item.id}`}>{item.title}</Link>
+              </td>
               <td>{item.status}</td>
               <td>{item.organizer}</td>
               <td>{item.name}</td>
