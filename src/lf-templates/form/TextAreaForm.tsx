@@ -3,6 +3,7 @@ import { FormField, FormFieldProps } from '.'
 
 type TextAreaProps = FormFieldProps & {
   placeholder?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: any
 }
 

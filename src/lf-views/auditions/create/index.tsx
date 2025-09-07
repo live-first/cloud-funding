@@ -13,14 +13,42 @@ import { useAuditionApi } from '@/api/auditionsApi'
 import { AuditionSchema, AuditionType } from '@/domain/audition'
 import { AuditionCategory } from '@/domain/enum/AuditionCategory'
 import { Region } from '@/domain/enum/Region'
+import { FileUploadForm } from '@/lf-templates/form/FileUploadForm'
+import { useState } from 'react'
+import { s3Upload } from '@/api/s3Upload'
+import { FileType } from '@/domain/file'
 
 export const AuditionCreateView = () => {
   const { addAudition } = useAuditionApi()
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-  const onClickHandler = (data: AuditionType) => {
-    addAudition.mutateAsync(data).then(() => {
-      window.alert('CREATED!!')
+  const onClickHandler = async (data: AuditionType) => {
+    await addAudition.mutateAsync(data).then((res) => {
+      try {
+        if (res.data.img.length > 0 && selectedFile) {
+          const uploadFiles: FileType[] = res.data.img.map(
+            (item) =>
+              ({
+                fileName: item,
+                file: selectedFile,
+              } as FileType),
+          )
+          s3Upload(uploadFiles)
+        }
+        window.alert('CREATED!!')
+      } catch (error) {
+        window.alert(`エラーが発生しました。[${error}]`)
+      }
     })
+  }
+
+  // ファイルが選択されたときに呼び出されるハンドラ
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const targetFiles = event.target.files
+    if (targetFiles && targetFiles.length > 0) {
+      setSelectedFile(targetFiles[0])
+      setValue('img', [targetFiles[0].name])
+    }
   }
 
   const defaultValues: AuditionType = {
@@ -173,7 +201,13 @@ export const AuditionCreateView = () => {
             register={register('flow')}
             error={errors.flow?.message}
           />
-          <div className='border-b border-primary'></div>
+          <FileUploadForm
+            title='画像アップロード'
+            error={errors.flow?.message}
+            onChange={handleFileChange}
+          />
+          <div className='border-b border-primary py-4'></div>
+          ※掲載ページでは非表示の項目です。
           <TextFieldForm
             title='担当者名'
             required

@@ -46,3 +46,8 @@ export type AuditionResponseType = AuditionType & {
   createdAt: string
   updatedAt: string
 }
+
+export type AuditionCreateResponseType = {
+  id: number
+  img: string[]
+}
