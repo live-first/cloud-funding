@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/lf-components/Button'
 
 import { TextAreaForm } from '@/lf-templates/form/TextAreaForm'
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { SelectForm } from '@/lf-templates/form/SelectForm'
 import { useAuditionApi } from '@/api/auditionsApi'
 import { AuditionSchema, AuditionType } from '@/domain/audition'
@@ -17,6 +16,7 @@ import { FileUploadForm } from '@/lf-templates/form/FileUploadForm'
 import { useState } from 'react'
 import { s3Upload } from '@/api/s3Upload'
 import { FileType } from '@/domain/file'
+import { DateTimePickerForm } from '@/lf-templates/form/DateTimePickerForm'
 
 export const AuditionCreateView = () => {
   const { addAudition } = useAuditionApi()
@@ -99,8 +99,8 @@ export const AuditionCreateView = () => {
             register={register('subtitle')}
             error={errors.subtitle?.message}
           />
-          <DateTimePicker
-            label='締切日時'
+          <DateTimePickerForm
+            title='締切日時'
             onChange={(value) => {
               setValue('deadline', value?.format('YYYY-MM-DDTHH:mm:ss') ?? null)
             }}

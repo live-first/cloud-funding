@@ -9,7 +9,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/lf-components/Button'
 
 import { TextAreaForm } from '@/lf-templates/form/TextAreaForm'
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { NewsRequestType, NewsSchema } from '@/domain/news'
 import { SelectForm } from '@/lf-templates/form/SelectForm'
 import { useDomainApi } from '@/api/domainApi'
@@ -19,6 +18,7 @@ import { FileUploadForm } from '@/lf-templates/form/FileUploadForm'
 import { useState } from 'react'
 import { FileType } from '@/domain/file'
 import { s3Upload } from '@/api/s3Upload'
+import { DateTimePickerForm } from '@/lf-templates/form/DateTimePickerForm'
 
 export const NewsCreateView = () => {
   const domainStore = useStore('domain')
@@ -97,14 +97,14 @@ export const NewsCreateView = () => {
             register={register('context')}
             error={errors.context?.message}
           />
-          <DateTimePicker
-            label='公開日時'
+          <DateTimePickerForm
+            title='公開日時'
             onChange={(value) => {
               setValue('open', value?.format('YYYY-MM-DDTHH:mm:ss') ?? null)
             }}
           />
-          <DateTimePicker
-            label='非公開日時'
+          <DateTimePickerForm
+            title='非公開日時'
             onChange={(value) => {
               setValue('close', value?.format('YYYY-MM-DDTHH:mm:ss') ?? null)
             }}
