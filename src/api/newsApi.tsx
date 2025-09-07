@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { axios } from './baseApi'
-import { NewsRequestType, NewsType } from '@/domain/news'
+import { NewsCreateResponseType, NewsRequestType, NewsType } from '@/domain/news'
 
 export const useNewsApi = (domain: string) => {
   const queryClient = useQueryClient()
@@ -16,7 +16,7 @@ export const useNewsApi = (domain: string) => {
 
   const addNews = useMutation({
     mutationFn: (data: NewsRequestType) => {
-      return axios.post('/news', data)
+      return axios.post<NewsCreateResponseType>('/news', data)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['news'] })

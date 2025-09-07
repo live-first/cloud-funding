@@ -5,12 +5,12 @@ import { useNewsApi } from '@/api/newsApi'
 import { Button } from '@/lf-components/Button'
 import { Heading } from '@/lf-components/Heading'
 import { useStore } from '@/store/useStore'
-import stringUtils from '@/utils/stringUtils'
+import { formatDate, removeQuotation } from '@/utils/stringUtils'
 import Link from 'next/link'
 
 export const NewsView = () => {
   const domainStore = useStore('domain')
-  const { getNews } = useNewsApi(stringUtils().removeQuotation(domainStore.getItem() as string))
+  const { getNews } = useNewsApi(removeQuotation(domainStore.getItem() as string))
   const news = getNews.data
   const { getCategories } = useCategoryApi()
 
@@ -52,8 +52,8 @@ export const NewsView = () => {
                   </span>
                 ))}
               </td>
-              <td>{item.createdAt}</td>
-              <td>{item.updatedAt}</td>
+              <td>{formatDate(item.createdAt, 'YYYY/MM/DD hh:mm')}</td>
+              <td>{formatDate(item.updatedAt, 'YYYY/MM/DD hh:mm')}</td>
             </tr>
           ))}
         </tbody>

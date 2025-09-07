@@ -1,8 +1,11 @@
 'use client'
 
 import { useAuditionApi } from '@/api/auditionsApi'
+import { Status, statusToString } from '@/domain/enum/Status'
+import { Badge } from '@/lf-components/Badge'
 import { Button } from '@/lf-components/Button'
 import { Heading } from '@/lf-components/Heading'
+import { formatDate } from '@/utils/stringUtils'
 import Link from 'next/link'
 
 export const AuditionsView = () => {
@@ -36,15 +39,33 @@ export const AuditionsView = () => {
               <td>
                 <Link href={`/auditions/${item.id}`}>{item.title}</Link>
               </td>
-              <td>{item.status}</td>
+              <td>
+                <Badge size='sm' theme={statusToTheme(item.status)}>
+                  {statusToString(item.status)}
+                </Badge>
+              </td>
               <td>{item.organizer}</td>
               <td>{item.name}</td>
-              <td>{item.createdAt}</td>
-              <td>{item.updatedAt}</td>
+              <td>{formatDate(item.createdAt, 'YYYY/MM/DD hh:mm')}</td>
+              <td>{formatDate(item.updatedAt, 'YYYY/MM/DD hh:mm')}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   )
+}
+
+export const statusToTheme = (key?: string) => {
+  return key === Status.DRAFT
+    ? 'attention'
+    : key === Status.REVIEW
+    ? 'attention'
+    : key === Status.PUBLIC
+    ? 'info'
+    : key === Status.REJECT
+    ? 'error'
+    : key === Status.REPUBLIC
+    ? 'error'
+    : 'info'
 }

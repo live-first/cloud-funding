@@ -34,8 +34,8 @@ export const AuditionCreateView = () => {
               } as FileType),
           )
           s3Upload(uploadFiles)
+          window.alert('CREATED!!')
         }
-        window.alert('CREATED!!')
       } catch (error) {
         window.alert(`エラーが発生しました。[${error}]`)
       }
@@ -203,7 +203,7 @@ export const AuditionCreateView = () => {
           />
           <FileUploadForm
             title='画像アップロード'
-            error={errors.flow?.message}
+            error={errors.img?.message}
             onChange={handleFileChange}
           />
           <div className='border-b border-primary py-4'></div>

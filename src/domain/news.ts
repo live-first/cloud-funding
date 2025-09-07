@@ -27,3 +27,8 @@ export const NewsSchema = z.object({
 })
 
 export type NewsRequestType = z.infer<typeof NewsSchema>
+
+export type NewsCreateResponseType = {
+  id: number
+  img: string[]
+}

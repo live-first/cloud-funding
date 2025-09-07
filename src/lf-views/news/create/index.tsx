@@ -15,17 +15,45 @@ import { SelectForm } from '@/lf-templates/form/SelectForm'
 import { useDomainApi } from '@/api/domainApi'
 import { Options } from '@/lf-components/Select'
 import { useCategoryApi } from '@/api/categoryApi'
+import { FileUploadForm } from '@/lf-templates/form/FileUploadForm'
+import { useState } from 'react'
+import { FileType } from '@/domain/file'
+import { s3Upload } from '@/api/s3Upload'
 
 export const NewsCreateView = () => {
   const domainStore = useStore('domain')
   const { addNews } = useNewsApi(domainStore.getItem()?.replace(/^"(.*)"$/, '$1') as string)
   const { getDomains } = useDomainApi()
   const { getCategories } = useCategoryApi()
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const onClickHandler = (data: NewsRequestType) => {
-    addNews.mutateAsync(data).then(() => {
-      window.alert('CREATED!!')
+    addNews.mutateAsync(data).then((res) => {
+      try {
+        if (res.data.img.length > 0 && selectedFile) {
+          const uploadFiles: FileType[] = res.data.img.map(
+            (item) =>
+              ({
+                fileName: item,
+                file: selectedFile,
+              } as FileType),
+          )
+          s3Upload(uploadFiles)
+          window.alert('CREATED!!')
+        }
+      } catch (error) {
+        window.alert(`エラーが発生しました。[${error}]`)
+      }
     })
+  }
+
+  // ファイルが選択されたときに呼び出されるハンドラ
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const targetFiles = event.target.files
+    if (targetFiles && targetFiles.length > 0) {
+      setSelectedFile(targetFiles[0])
+      setValue('img', [targetFiles[0].name])
+    }
   }
 
   const defaultValues: NewsRequestType = {
@@ -114,6 +142,11 @@ export const NewsCreateView = () => {
             onChange={(e) => {
               setValue('category', [Number(e.target.value)])
             }}
+          />
+          <FileUploadForm
+            title='画像アップロード'
+            error={errors.img?.message}
+            onChange={handleFileChange}
           />
           <Button label='作成する' type='submit' disabled={!isValid || isSubmitting} />
         </div>

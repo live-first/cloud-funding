@@ -17,27 +17,27 @@ type Story = StoryObj<typeof meta>
 export const Info: Story = {
   args: {
     theme: 'info',
-    label: 'new',
+    children: 'new',
   },
 }
 
 export const Error: Story = {
   args: {
     theme: 'error',
-    label: 'error',
+    children: 'error',
   },
 }
 
 export const Attention: Story = {
   args: {
     theme: 'attention',
-    label: 'attention',
+    children: 'attention',
   },
 }
 
 export const Warning: Story = {
   args: {
     theme: 'warning',
-    label: 'warning',
+    children: 'warning',
   },
 }

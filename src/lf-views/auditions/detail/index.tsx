@@ -4,11 +4,14 @@ import { useAuditionApi } from '@/api/auditionsApi'
 import { auditionCategoryToString } from '@/domain/enum/AuditionCategory'
 import { regionToString } from '@/domain/enum/Region'
 import { Status, statusToString } from '@/domain/enum/Status'
+import { Badge } from '@/lf-components/Badge'
 import { Button } from '@/lf-components/Button'
 import { Heading } from '@/lf-components/Heading'
+import { Img } from '@/lf-components/Image'
 import { SelectForm } from '@/lf-templates/form/SelectForm'
 import Link from 'next/link'
 import { PropsWithChildren, useState } from 'react'
+import { statusToTheme } from '..'
 
 export const AuditionDetailView = (params: { id: number }) => {
   const { getAudition, updateStatus } = useAuditionApi(params.id)
@@ -29,8 +32,15 @@ export const AuditionDetailView = (params: { id: number }) => {
   return (
     <div className='flex flex-col p-6 gap-4'>
       <Heading tag={4} label='オーディション詳細' />
-      <div className=''>{statusToString(item?.status)}</div>
+      <div className=''>
+        <Badge theme={statusToTheme(item?.status)}>{statusToString(item?.status)}</Badge>
+      </div>
       <div className='flex flex-col gap-6'>
+        <Section>
+          {item?.img && (
+            <Img src={`https://livefirst.s3.ap-northeast-1.amazonaws.com/${item?.img[0]}`} alt='' />
+          )}
+        </Section>
         <Section>
           <Heading tag={5} label='タイトル' />
           <label>{item?.title}</label>
