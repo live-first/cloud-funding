@@ -135,10 +135,10 @@ export const AuditionDetailView = (params: { id: number }) => {
             setStatus(e.target.value)
           }}
         />
-        <Checkbox label='優先表示の有無' checked={pr} onChange={() => setPr(!pr)} />
+        <Checkbox label='優先表示の有無' checked={item?.pr} onChange={() => setPr(!pr)} />
         <Checkbox
           label='最優先（最も優先フラグ）の有無'
-          checked={premier}
+          checked={item?.premier}
           onChange={() => setPremier(!premier)}
         />
         <Button
