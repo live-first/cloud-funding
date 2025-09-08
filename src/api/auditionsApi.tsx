@@ -2,8 +2,12 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { axios } from './baseApi'
-import { AuditionCreateResponseType, AuditionResponseType, AuditionType } from '@/domain/audition'
-import { StatusRequest } from '@/domain/enum/Status'
+import {
+  AuditionCreateResponseType,
+  AuditionResponseType,
+  AuditionStatusRequest,
+  AuditionType,
+} from '@/domain/audition'
 
 export const useAuditionApi = (id?: number) => {
   const queryClient = useQueryClient()
@@ -42,8 +46,12 @@ export const useAuditionApi = (id?: number) => {
   })
 
   const updateStatus = useMutation({
-    mutationFn: (data: StatusRequest) => {
-      return axios.put(`/audition/${data.id}`, { status: data.status })
+    mutationFn: (data: AuditionStatusRequest) => {
+      return axios.put(`/audition/${data.id}`, {
+        status: data.status,
+        pr: data.pr,
+        premier: data.premier,
+      })
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auditions'] })

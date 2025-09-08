@@ -45,9 +45,18 @@ export type AuditionType = z.infer<typeof AuditionSchema>
 export type AuditionResponseType = AuditionType & {
   createdAt: string
   updatedAt: string
+  pr: boolean
+  premier: boolean
 }
 
 export type AuditionCreateResponseType = {
   id: number
   img: string[]
+}
+
+export type AuditionStatusRequest = {
+  id: number
+  status: string
+  pr: boolean
+  premier: boolean
 }
