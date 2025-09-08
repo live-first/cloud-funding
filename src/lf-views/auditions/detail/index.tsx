@@ -12,17 +12,23 @@ import { SelectForm } from '@/lf-templates/form/SelectForm'
 import Link from 'next/link'
 import { PropsWithChildren, useState } from 'react'
 import { statusToTheme } from '..'
+import { formatDate } from '@/utils/stringUtils'
+import { Checkbox } from '@/lf-components/Checkbox'
 
 export const AuditionDetailView = (params: { id: number }) => {
   const { getAudition, updateStatus } = useAuditionApi(params.id)
   const item = getAudition.data
   const [status, setStatus] = useState<string>(item?.status ?? '')
+  const [pr, setPr] = useState<boolean>(item?.pr ?? false)
+  const [premier, setPremier] = useState<boolean>(item?.premier ?? false)
 
   const onClickHandler = () => {
-    updateStatus.mutateAsync({ id: params.id, status: status }).then(() => {
-      window.alert('UPDATED!!')
-      getAudition.refetch()
-    })
+    updateStatus
+      .mutateAsync({ id: params.id, status: status, pr: pr, premier: premier })
+      .then(() => {
+        window.alert('UPDATED!!')
+        getAudition.refetch()
+      })
   }
 
   const Section = (props: PropsWithChildren) => {
@@ -51,7 +57,7 @@ export const AuditionDetailView = (params: { id: number }) => {
         </Section>
         <Section>
           <Heading tag={5} label='締切日時' />
-          <label>{item?.deadline}</label>
+          {item?.deadline ? <label>{formatDate(item?.deadline, 'YYYY/MM/DD hh:mm')}</label> : '-'}
         </Section>
         <Section>
           <Heading tag={5} label='カテゴリ' />
@@ -106,7 +112,7 @@ export const AuditionDetailView = (params: { id: number }) => {
           {item?.hp && <Link href={item?.hp}>{item?.hp}</Link>}
         </Section>
       </div>
-      <div className='flex flex-col py-4 gap-2'>
+      <div className='flex flex-col pt-4 pb-12 gap-4'>
         <SelectForm
           title='ステータス'
           required
@@ -128,6 +134,12 @@ export const AuditionDetailView = (params: { id: number }) => {
           onChange={(e) => {
             setStatus(e.target.value)
           }}
+        />
+        <Checkbox label='優先表示の有無' checked={pr} onChange={() => setPr(!pr)} />
+        <Checkbox
+          label='最優先（最も優先フラグ）の有無'
+          checked={premier}
+          onChange={() => setPremier(!premier)}
         />
         <Button
           label='ステータス変更'
