@@ -21,6 +21,10 @@ export const LeftMenuView = (props: { url: string }) => {
       label: 'オーディション管理',
       url: '/auditions',
     },
+    {
+      label: 'ユーザー管理',
+      url: '/users',
+    },
   ]
 
   return (
