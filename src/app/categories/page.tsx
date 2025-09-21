@@ -1,7 +1,7 @@
-import { LeftMenuLayout } from '@/lf-layouts/LeftMenuLayout'
-import { CategoriesView } from '@/lf-views/category'
-import { GlobalHeader } from '@/lf-views/header/GlobalHeader'
-import { LeftMenuView } from '@/lf-views/leftMenu'
+import { LeftMenuLayout } from '@/layouts/LeftMenuLayout'
+import { CategoriesView } from '@/views/category'
+import { GlobalHeader } from '@/views/header/GlobalHeader'
+import { LeftMenuView } from '@/views/leftMenu'
 
 export default function Categories() {
   return (

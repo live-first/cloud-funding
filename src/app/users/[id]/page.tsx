@@ -1,7 +1,7 @@
-import { LeftMenuLayout } from '@/lf-layouts/LeftMenuLayout'
-import { GlobalHeader } from '@/lf-views/header/GlobalHeader'
-import { LeftMenuView } from '@/lf-views/leftMenu'
-import { UsersDetailView } from '@/lf-views/users/detail'
+import { LeftMenuLayout } from '@/layouts/LeftMenuLayout'
+import { GlobalHeader } from '@/views/header/GlobalHeader'
+import { LeftMenuView } from '@/views/leftMenu'
+import { UsersDetailView } from '@/views/users/detail'
 
 export default function CategoryCreate(props: { params: { id: number } }) {
   const { params } = props

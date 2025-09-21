@@ -1,7 +1,7 @@
-import { LeftMenuLayout } from '@/lf-layouts/LeftMenuLayout'
-import { DomainsView } from '@/lf-views/domains'
-import { GlobalHeader } from '@/lf-views/header/GlobalHeader'
-import { LeftMenuView } from '@/lf-views/leftMenu'
+import { LeftMenuLayout } from '@/layouts/LeftMenuLayout'
+import { DomainsView } from '@/views/domains'
+import { GlobalHeader } from '@/views/header/GlobalHeader'
+import { LeftMenuView } from '@/views/leftMenu'
 
 export default function Domains() {
   return (

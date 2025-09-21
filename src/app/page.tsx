@@ -1,7 +1,7 @@
-import { LeftMenuLayout } from '@/lf-layouts/LeftMenuLayout'
-import { GlobalHeader } from '@/lf-views/header/GlobalHeader'
-import { HomeView } from '@/lf-views/home'
-import { LeftMenuView } from '@/lf-views/leftMenu'
+import { LeftMenuLayout } from '@/layouts/LeftMenuLayout'
+import { GlobalHeader } from '@/views/header/GlobalHeader'
+import { HomeView } from '@/views/home'
+import { LeftMenuView } from '@/views/leftMenu'
 
 export default function Home() {
   return (

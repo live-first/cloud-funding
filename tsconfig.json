@@ -20,11 +20,11 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@lf-layouts/*": ["./src/lf-layouts/*"],
-      "@lf-domain/*": ["./src/lf-domain/*"],
-      "@lf-components/*": ["./src/lf-components/*"],
-      "@lf-templates/*": ["./src/lf-templates/*"],
-      "@lf-views/*": ["./src/lf-views/*"]
+      "@layouts/*": ["./src/layouts/*"],
+      "@domain/*": ["./src/lf-domain/*"],
+      "@components/*": ["./src/components/*"],
+      "@templates/*": ["./src/templates/*"],
+      "@views/*": ["./src/views/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

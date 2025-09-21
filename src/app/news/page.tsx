@@ -1,7 +1,7 @@
-import { LeftMenuLayout } from '@/lf-layouts/LeftMenuLayout'
-import { GlobalHeader } from '@/lf-views/header/GlobalHeader'
-import { LeftMenuView } from '@/lf-views/leftMenu'
-import { NewsView } from '@/lf-views/news'
+import { LeftMenuLayout } from '@/layouts/LeftMenuLayout'
+import { GlobalHeader } from '@/views/header/GlobalHeader'
+import { LeftMenuView } from '@/views/leftMenu'
+import { NewsView } from '@/views/news'
 
 export default function News() {
   return (
