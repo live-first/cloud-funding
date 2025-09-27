@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react'
 import { cn } from '../utils'
-import './style.css'
+import './select.css'
 
 export type Options = {
   value: string | number

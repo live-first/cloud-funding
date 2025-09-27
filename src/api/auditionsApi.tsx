@@ -29,7 +29,7 @@ export const useAuditionApi = (id?: number) => {
 
   const addAudition = useMutation({
     mutationFn: (data: AuditionType) => {
-      return axios.post<AuditionCreateResponseType>('/audition', data)
+      return axios.post<AuditionCreateResponseType>('/public/audition', data)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auditions'] })
@@ -38,7 +38,7 @@ export const useAuditionApi = (id?: number) => {
 
   const updateAudition = useMutation({
     mutationFn: (audition: AuditionType) => {
-      return axios.put('/audition', audition)
+      return axios.put('/public/audition', audition)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auditions'] })

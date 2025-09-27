@@ -1,7 +1,7 @@
 export const AccountType = {
   GENERAL: 'GENERAL',
   MEMBER: 'MEMBER',
-  MANAGEMENT: 'MANAGEMENT',
+  OPERATION: 'OPERATION',
   ADMIN: 'ADMIN',
 } as const
 
@@ -12,7 +12,7 @@ export const AccountTypeToString = (key?: string) => {
     ? '一般'
     : key === AccountType.MEMBER
     ? 'メンバー'
-    : key === AccountType.MANAGEMENT
+    : key === AccountType.OPERATION
     ? '管理者'
     : key === AccountType.ADMIN
     ? '開発者'
