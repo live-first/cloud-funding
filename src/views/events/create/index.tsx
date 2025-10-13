@@ -75,6 +75,11 @@ export const EventCreateView = () => {
       <Heading tag={4} label='イベント作成' />
       <form onSubmit={handleSubmit((e) => onClickHandler(e))}>
         <div className='flex flex-col gap-4'>
+          <ImageUploadForm
+            title='画像アップロード'
+            error={errors.img?.message}
+            onChange={handleFileChange}
+          />
           <TextFieldForm
             title='タイトル'
             required
@@ -88,17 +93,32 @@ export const EventCreateView = () => {
               setValue('date', value?.format('YYYY/MM/DD') ?? null)
             }}
           />
+          <div className='flex gap-2'>
+            <TextFieldForm
+              title='開場'
+              placeholder='hh:mm'
+              register={register('openTime')}
+              error={errors.openTime?.message}
+            />
+            <TextFieldForm
+              title='開演'
+              placeholder='hh:mm'
+              register={register('startTime')}
+              error={errors.startTime?.message}
+            />
+          </div>
+          <TextFieldForm
+            title='チケット'
+            placeholder='hh:mm'
+            register={register('ticketUrl')}
+            error={errors.ticketUrl?.message}
+          />
           <TextAreaForm
             title='概要'
             required
             placeholder=''
             register={register('context')}
             error={errors.context?.message}
-          />
-          <ImageUploadForm
-            title='画像アップロード'
-            error={errors.img?.message}
-            onChange={handleFileChange}
           />
 
           <Button label='作成する' type='submit' disabled={!isValid || isSubmitting} />
