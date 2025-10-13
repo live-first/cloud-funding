@@ -1,10 +1,11 @@
 'use client'
 
 import { cn } from '@/components/utils'
+import { LabelUrl } from '@/domain/labelUrl'
 import Link from 'next/link'
 
 export const LeftMenuView = (props: { url: string }) => {
-  const menus: { label: string; url: string }[] = [
+  const menus: LabelUrl[] = [
     {
       label: 'ドメイン管理',
       url: '/domains',
@@ -12,6 +13,10 @@ export const LeftMenuView = (props: { url: string }) => {
     {
       label: 'お知らせ管理',
       url: '/news',
+    },
+    {
+      label: 'イベント管理',
+      url: '/events',
     },
     {
       label: 'カテゴリ管理',
