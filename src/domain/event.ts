@@ -1,5 +1,5 @@
 import z from 'zod'
-import { context, stringArray, title } from './schema'
+import { context, stringArray, title, url } from './schema'
 
 export const EventSchema = z.object({
   id: z.number().nullable().optional(),
@@ -9,7 +9,7 @@ export const EventSchema = z.object({
   openTime: z.string().nullable(),
   startTime: z.string().nullable(),
   img: stringArray.optional(),
-  ticketUrl: stringArray.optional(),
+  ticketUrl: url.nullable(),
   context: context,
 })
 

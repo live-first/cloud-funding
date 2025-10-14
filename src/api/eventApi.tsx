@@ -8,9 +8,9 @@ export const useEventApi = (id?: number) => {
   const queryClient = useQueryClient()
 
   const getEvents = useQuery({
-    queryKey: ['eventss'],
+    queryKey: ['events'],
     queryFn: async () => {
-      return (await axios.get(`/event/all`)).data
+      return (await axios.get(`/event`)).data
     },
   })
 
@@ -24,7 +24,16 @@ export const useEventApi = (id?: number) => {
 
   const addEvent = useMutation({
     mutationFn: (data: EventType) => {
-      return axios.post<EventCreateResponseType>('/event', data)
+      return axios.post<EventCreateResponseType>(
+        'https://script.google.com/macros/s/AKfycbzpzAPxTtKceJ9uoqgWLUjQuH6YMuUPN0Aa3PPcENcxF-uxg0ZcmaL0wA-kEKecOXWWGg/exec',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            method: 'post',
+          },
+        },
+      )
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['events'] })

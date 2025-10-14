@@ -49,13 +49,14 @@ export const EventCreateView = () => {
   }
 
   const defaultValues: EventType = {
+    id: null,
     title: '',
     placeName: '',
     date: '',
     openTime: null,
     startTime: null,
     img: [],
-    ticketUrl: [],
+    ticketUrl: '',
     context: '',
   }
 
@@ -109,7 +110,7 @@ export const EventCreateView = () => {
           </div>
           <TextFieldForm
             title='チケット'
-            placeholder='hh:mm'
+            placeholder='https://'
             register={register('ticketUrl')}
             error={errors.ticketUrl?.message}
           />
@@ -120,7 +121,6 @@ export const EventCreateView = () => {
             register={register('context')}
             error={errors.context?.message}
           />
-
           <Button label='作成する' type='submit' disabled={!isValid || isSubmitting} />
         </div>
       </form>
