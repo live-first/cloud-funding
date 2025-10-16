@@ -7,14 +7,15 @@ import { useEventApi } from '@/api/eventApi'
 import { EventType } from '@/domain/event'
 
 export const EventDetailView = (params: { id: number }) => {
-  const { getEvent } = useEventApi(params.id)
-  const item = getEvent.data as EventType
+  const { getEvents } = useEventApi()
+  const events = getEvents.data as EventType[]
+  const item = events.filter((event) => event.id === params.id)[0]
 
   const Section = (props: PropsWithChildren) => {
     return <div className='flex flex-col gap-2'>{props.children}</div>
   }
 
-  return (
+  return item ? (
     <div className='flex flex-col p-6 gap-4'>
       <Heading tag={4} label='イベント詳細' />
       <div className=''></div>
@@ -52,5 +53,7 @@ export const EventDetailView = (params: { id: number }) => {
         </Section>
       </div>
     </div>
+  ) : (
+    <></>
   )
 }

@@ -36,8 +36,8 @@ export const EventsView = () => {
               <td>
                 <Link href={`/events/${item.id}`}>{item.title}</Link>
               </td>
-              <td>{item.placeName}</td>
               <td>{item.date}</td>
+              <td>{item.placeName}</td>
               <td>{item.openTime}</td>
               <td>{item.startTime}</td>
             </tr>
