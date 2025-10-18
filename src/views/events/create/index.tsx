@@ -20,10 +20,10 @@ export const EventCreateView = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const onClickHandler = async (data: EventType) => {
-    await addEvent(data).then((res) => {
+    await addEvent.mutateAsync(data).then((res) => {
       try {
-        if (res.img.length > 0 && selectedFile) {
-          const uploadFiles: FileType[] = res.img.map(
+        if (res.data.img.length > 0 && selectedFile) {
+          const uploadFiles: FileType[] = res.data.img.map(
             (item) =>
               ({
                 fileName: item,
@@ -56,7 +56,7 @@ export const EventCreateView = () => {
     openTime: null,
     startTime: null,
     img: [],
-    ticketUrl: '',
+    ticketUrl: null,
     context: '',
   }
 
