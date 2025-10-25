@@ -56,7 +56,6 @@ export const EventCreateView = () => {
     openTime: null,
     startTime: null,
     img: [],
-    ticketUrl: null,
     context: '',
   }
 
@@ -108,12 +107,6 @@ export const EventCreateView = () => {
               error={errors.startTime?.message}
             />
           </div>
-          <TextFieldForm
-            title='チケット'
-            placeholder='https://'
-            register={register('ticketUrl')}
-            error={errors.ticketUrl?.message}
-          />
           <TextAreaForm
             title='概要'
             required

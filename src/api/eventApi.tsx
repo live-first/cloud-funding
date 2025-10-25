@@ -8,7 +8,7 @@ export const useEventApi = () => {
   const queryClient = useQueryClient()
 
   const EVENT_URL =
-    'https://script.google.com/macros/s/AKfycbyjbYd2Si_hd191KVfpB1lWIPtBvTUKdjoHk_ebWcfYViF3nKcJ7RXgsk2cWD5nVYH7BA/exec'
+    'https://script.google.com/macros/s/AKfycbxuZyZPNadZuOib6H57j1j4zj0kLVgAy-jXNPteQTtN62Xj4stJZYG4P6CrKhNXX8Vqow/exec'
 
   const getEvents = useQuery({
     queryKey: ['events'],
@@ -19,9 +19,15 @@ export const useEventApi = () => {
 
   const addEvent = useMutation({
     mutationFn: (data: EventType) => {
-      return axios.post<EventCreateResponseType>(EVENT_URL, data, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return axios.post<EventCreateResponseType>(
+        EVENT_URL,
+        encodeURI(
+          `title=${data.title}&date=${data.date}&placeName=${data.placeName}&openTime=${data.openTime}&startTime=${data.startTime}&img=${data.img}&context=${data.context}`,
+        ),
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        },
+      )
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['events'] })
