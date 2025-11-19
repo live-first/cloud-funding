@@ -1,10 +1,9 @@
-import { LeftMenuLayout } from '@/layouts/LeftMenuLayout'
+import { SingleViewLayout } from '@/layouts/SingleViewLayout'
 import { GlobalHeader } from '@/views/header/GlobalHeader'
 import { HomeView } from '@/views/home'
-import { LeftMenuView } from '@/views/leftMenu'
 
 export default function Home() {
   return (
-    <LeftMenuLayout header={<GlobalHeader />} left={<LeftMenuView url='/' />} main={<HomeView />} />
+    <SingleViewLayout header={<GlobalHeader />} main={<HomeView />} />
   )
 }
