@@ -1,37 +1,29 @@
-import { useCheckout, PaymentElement } from '@stripe/react-stripe-js/checkout'
+import React from 'react'
+import { ExpressCheckoutElement, useCheckout } from '@stripe/react-stripe-js/checkout'
 
 export const CheckoutForm = () => {
   const checkoutState = useCheckout()
+  if (checkoutState.type === 'loading') {
+    return <div>Loading...</div>
+  } else if (checkoutState.type === 'error') {
+    return <div>Error: {checkoutState.error.message}</div>
+  }
 
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
-    event.preventDefault()
-
-    if (checkoutState.type === 'loading') {
-      return <div>Loading...</div>
-    } else if (checkoutState.type === 'error') {
-      return <div>Error: {checkoutState.error.message}</div>
-    }
-
-    // checkoutState.type === 'success'
-    const { checkout } = checkoutState
-    const result = await checkout.confirm()
-
-    if (result.type === 'error') {
-      // Show error to your customer (for example, payment details incomplete)
-      console.log(result.error.message)
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+  const handleConfirmExpressCheckout = (event) => {
+    if (checkoutState.type === 'success') {
+      checkoutState.checkout.confirm({ expressCheckoutConfirmEvent: event })
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <PaymentElement />
-      <button>Submit</button>
-    </form>
+    <div id='checkout-page'>
+      {checkoutState.type === 'success' && (
+        <pre>
+          {JSON.stringify(checkoutState.checkout.lineItems, null, 2)}
+          Total: {checkoutState.checkout.total?.amount}
+        </pre>
+      )}
+      <ExpressCheckoutElement onConfirm={handleConfirmExpressCheckout} />
+    </div>
   )
 }
