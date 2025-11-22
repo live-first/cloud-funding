@@ -14,7 +14,7 @@ import Link from 'next/link'
 
 export const TopView = () => {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col pb-12'>
       <div className='flex flex-col items-center header-gradient py-6'>
         <h1 className='font-bold text-2xl md:text-4xl text-gray-700'>
           来桜アイドルプロデュース プロジェクト
