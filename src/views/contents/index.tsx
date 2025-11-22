@@ -1,6 +1,6 @@
 export const ContentsView = () => {
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-6 py-12'>
       <Outline />
       <Return />
     </div>

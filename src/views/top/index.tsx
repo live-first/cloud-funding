@@ -3,17 +3,22 @@
 import { Img } from '@/components/Image'
 import './style.css'
 import top from '@/data/image/top.jpeg'
+import x from '@/data/image/x-logo.png'
+import insta from '@/data/image/insta-logo.png'
+import tiktok from '@/data/image/tiktok-logo.png'
 import { cn } from '@/components/utils'
 import { RiMoneyCnyCircleFill } from 'react-icons/ri'
 import { FaUsers } from 'react-icons/fa6'
-import { FaClock } from 'react-icons/fa'
+import { FaClock, FaLink } from 'react-icons/fa'
 import Link from 'next/link'
 
 export const TopView = () => {
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col items-center header-gradient py-6'>
-        <h1 className='font-bold text-2xl md:text-4xl text-gray-700'>来桜アイドルプロデュース プロジェクト</h1>
+        <h1 className='font-bold text-2xl md:text-4xl text-gray-700'>
+          来桜アイドルプロデュース プロジェクト
+        </h1>
       </div>
 
       <SummaryView />
@@ -26,7 +31,7 @@ const SummaryView = () => {
   // 目標金額
   const goal = 3000000000
   // 現在の支援総額
-  const current = 999999999
+  const current = 4000000000
   // 支援者数
   const people = 100
   // 締切日時
@@ -89,6 +94,23 @@ const SummaryView = () => {
             {restDay.toLocaleString()}
             <span className='text-2xl ml-1'>日</span>
           </p>
+        </div>
+        <div className='flex flex-col gap-3'>
+          <p className='flex font-bold text-lg'>
+            <FaLink style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
+            SNS
+          </p>
+          <div className='flex gap-6 justify-center'>
+            <Link href='https://www.tiktok.com/@rara____wwwww'>
+              <Img src={tiktok.src} cName='h-12' />
+            </Link>
+            <Link href='https://www.instagram.com/rara____wwwww'>
+              <Img src={insta.src} cName='h-12' />
+            </Link>
+            <Link href='https://x.com/rara____wwwww'>
+              <Img src={x.src} cName='h-12' />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
