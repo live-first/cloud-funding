@@ -1,29 +1,50 @@
-import React from 'react'
-import { ExpressCheckoutElement, useCheckout } from '@stripe/react-stripe-js/checkout'
+'use client'
 
-export const CheckoutForm = () => {
-  const checkoutState = useCheckout()
-  if (checkoutState.type === 'loading') {
-    return <div>Loading...</div>
-  } else if (checkoutState.type === 'error') {
-    return <div>Error: {checkoutState.error.message}</div>
-  }
+import { useState } from 'react'
+import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
-  const handleConfirmExpressCheckout = (event) => {
-    if (checkoutState.type === 'success') {
-      checkoutState.checkout.confirm({ expressCheckoutConfirmEvent: event })
+export default function CheckoutForm() {
+  const stripe = useStripe()
+  const elements = useElements()
+
+  const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!stripe || !elements) return
+    setLoading(true)
+    setErrorMessage(null)
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/checkout-success`,
+      },
+    })
+
+    if (error) {
+      setErrorMessage(error.message || 'エラーが発生しました')
+      setLoading(false)
     }
   }
 
   return (
-    <div id='checkout-page'>
-      {checkoutState.type === 'success' && (
-        <pre>
-          {JSON.stringify(checkoutState.checkout.lineItems, null, 2)}
-          Total: {checkoutState.checkout.total?.amount}
-        </pre>
-      )}
-      <ExpressCheckoutElement onConfirm={handleConfirmExpressCheckout} />
-    </div>
+    <form onSubmit={handleSubmit} className='max-w-md mx-auto p-4 space-y-4'>
+      <h1 className='text-xl font-bold'>お支払い情報</h1>
+
+      <PaymentElement />
+
+      {errorMessage && <p className='text-red-600 text-sm mt-2'>{errorMessage}</p>}
+
+      <button
+        type='submit'
+        disabled={!stripe || loading}
+        className='w-full bg-blue-600 text-white py-2 rounded mt-4'
+      >
+        {loading ? '処理中…' : '支払う'}
+      </button>
+    </form>
   )
 }
