@@ -1,6 +1,7 @@
 import { SingleViewLayout } from '@/layouts/SingleViewLayout'
-import { HomeView } from '@/views/home'
+import { ContentsView } from '@/views/contents'
+import { TopView } from '@/views/top'
 
 export default function Home() {
-  return <SingleViewLayout allView={<HomeView />} />
+  return <SingleViewLayout allView={<TopView />} main={<ContentsView />} />
 }

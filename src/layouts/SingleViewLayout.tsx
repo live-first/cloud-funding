@@ -18,8 +18,8 @@ export const SingleViewLayout = (props: LayoutProps) => {
       {header && <header className='fixed w-full h-16 z-50'>{header}</header>}
       <main className='min-h-[900px] flex flex-col'>
         {header && <div className='h-16'></div>}
-        <Container maxWidth='lg'>{main}</Container>
         {allView}
+        <Container maxWidth='lg'>{main}</Container>
       </main>
       <footer>{footer}</footer>
     </div>
