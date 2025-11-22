@@ -1,3 +1,5 @@
+'use client'
+
 import { PropsWithChildren, ReactNode, useState } from 'react'
 import { cn } from '../utils'
 import { CgClose } from 'react-icons/cg'
@@ -23,14 +25,14 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
   const [open, setOpen] = useState<boolean>(isOpen)
 
   return (
-    <div>
+    <>
       <button className={cName} onClick={() => setOpen(true)}>
         {button}
       </button>
       <div
         className={cn(
-          open ? 'w-full h-full overlay fixed top-0 left-0 z-[200]' : 'hidden',
-          'relative',
+          open ? 'w-full h-full fixed inset-0 z-[9999]' : 'hidden',
+          'overlay',
         )}
       >
         <button
@@ -56,6 +58,6 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

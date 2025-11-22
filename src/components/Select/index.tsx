@@ -1,3 +1,5 @@
+'use client'
+
 import { ChangeEventHandler } from 'react'
 import { cn } from '../utils'
 import './select.css'

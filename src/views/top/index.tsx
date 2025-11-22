@@ -15,9 +15,11 @@ import Link from 'next/link'
 export const TopView = () => {
   return (
     <div className='flex flex-col pb-12'>
-      <div className='flex flex-col items-center header-gradient py-6'>
-        <h1 className='font-bold text-2xl md:text-4xl text-gray-700'>
-          来桜アイドルプロデュース プロジェクト
+      <div className='flex flex-col items-center header-gradient py-3'>
+        <h1 className='font-bold text-2xl md:text-4xl items-center text-center text-gray-700'>
+          来桜アイドルプロデュース
+          <br />
+          プロジェクト
         </h1>
       </div>
 
@@ -29,13 +31,13 @@ export const TopView = () => {
 
 const SummaryView = () => {
   // 目標金額
-  const goal = 3000000000
+  const goal = 1000000
   // 現在の支援総額
-  const current = 4000000000
+  const current = 550000
   // 支援者数
   const people = 100
   // 締切日時
-  const deadline = new Date(2025, 10, 23, 0, 0, 0)
+  const deadline = new Date(2025, 11, 28, 0, 0, 0)
 
   const rate = current / goal
   const viewRate = (rate * 100).toFixed(1)
@@ -65,6 +67,7 @@ const SummaryView = () => {
             {viewRate}
             <span className='text-2xl ml-1'>%</span>
           </p>
+          {/* インジケータ */}
           <div className='w-full h-6 bg-gray-400 rounded-full relative'>
             <div
               className={cn(
@@ -88,14 +91,22 @@ const SummaryView = () => {
             </p>
           </div>
           <div className='flex flex-col gap-3 w-1/2 md:w-full'>
-            <p className='flex font-bold text-lg'>
-              <FaClock style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
-              終了まで残り
-            </p>
-            <p className='font-bold text-gray-800 text-4xl'>
-              {restDay.toLocaleString()}
-              <span className='text-2xl ml-1'>日</span>
-            </p>
+            {restDay >= 0 ? (
+              <>
+                <p className='flex font-bold text-lg'>
+                  <FaClock style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
+                  終了まで残り
+                </p>
+                <p className='font-bold text-gray-800 text-4xl'>
+                  {restDay.toLocaleString()}
+                  <span className='text-2xl ml-1'>日</span>
+                </p>
+              </>
+            ) : (
+              <div className='flex flex-col w-full py-2 bg-gray-700 text-white font-bold items-center'>
+                本プロジェクトは終了しました
+              </div>
+            )}
           </div>
         </div>
 
@@ -104,7 +115,7 @@ const SummaryView = () => {
             <FaLink style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
             SNS
           </p>
-          <div className='flex gap-12 justify-center'>
+          <div className='flex gap-3 sm:gap-12 justify-center'>
             <Link href='https://www.tiktok.com/@rara____wwwww'>
               <Img src={tiktok.src} cName='h-12' />
             </Link>
@@ -131,7 +142,7 @@ const AnthorLinkButton = () => {
         </div>
       </Link>
       <div className='flex bg-blue-200 p-4 w-full sm:w-[400px]'>
-        本サイトは本プロジェクト独自に作成しているため、支援金額の95%が開催者に支給されます。
+        本サイトは当プロジェクト独自に作成しているため、支援金額の95%が開催者に支給されます。
       </div>
     </div>
   )
