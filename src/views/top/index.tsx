@@ -76,31 +76,35 @@ const SummaryView = () => {
           </div>
           <p className='text-end w-full'>目標金額：{goal.toLocaleString()}円</p>
         </div>
-        <div className='flex flex-col gap-3'>
-          <p className='flex font-bold text-lg'>
-            <FaUsers style={{ transform: 'translateY(3px)', marginRight: '4px' }} /> 支援者数
-          </p>
-          <p className='font-bold text-gray-800 text-4xl'>
-            {people.toLocaleString()}
-            <span className='text-2xl ml-1'>人</span>
-          </p>
+
+        <div className='flex md:flex-col md:gap-6'>
+          <div className='flex flex-col gap-3 w-1/2 md:w-full'>
+            <p className='flex font-bold text-lg'>
+              <FaUsers style={{ transform: 'translateY(3px)', marginRight: '4px' }} /> 支援者数
+            </p>
+            <p className='font-bold text-gray-800 text-4xl'>
+              {people.toLocaleString()}
+              <span className='text-2xl ml-1'>人</span>
+            </p>
+          </div>
+          <div className='flex flex-col gap-3 w-1/2 md:w-full'>
+            <p className='flex font-bold text-lg'>
+              <FaClock style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
+              終了まで残り
+            </p>
+            <p className='font-bold text-gray-800 text-4xl'>
+              {restDay.toLocaleString()}
+              <span className='text-2xl ml-1'>日</span>
+            </p>
+          </div>
         </div>
-        <div className='flex flex-col gap-3'>
-          <p className='flex font-bold text-lg'>
-            <FaClock style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
-            終了まで残り
-          </p>
-          <p className='font-bold text-gray-800 text-4xl'>
-            {restDay.toLocaleString()}
-            <span className='text-2xl ml-1'>日</span>
-          </p>
-        </div>
+
         <div className='flex flex-col gap-3'>
           <p className='flex font-bold text-lg'>
             <FaLink style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
             SNS
           </p>
-          <div className='flex gap-6 justify-center'>
+          <div className='flex gap-12 justify-center'>
             <Link href='https://www.tiktok.com/@rara____wwwww'>
               <Img src={tiktok.src} cName='h-12' />
             </Link>
