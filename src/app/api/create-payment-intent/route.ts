@@ -1,12 +1,9 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(
-  'sk_test_51L2xnnFRuEcVJcvhsN01SXgIqBMGua0bW9JGu3XvqQWO4ydaU2s2dnEECV6gum88Z85h5TfRMULr62o0anzPBGOV00SDClQxGu',
-  {
-    apiVersion: '2025-11-17.clover',
-  },
-)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-11-17.clover',
+})
 
 export async function POST() {
   try {

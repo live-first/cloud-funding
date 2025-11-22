@@ -1,0 +1,22 @@
+.header-gradient {
+  height: 100px;
+  width: 100%;
+  background-image: linear-gradient(118deg, rgba(251, 213, 251, 1), rgba(149, 233, 243, 1));
+}
+
+.low-rate {
+  background-image: linear-gradient(90deg, rgba(251, 213, 251, 1), rgba(149, 233, 243, 1));
+}
+
+.middle-rate {
+  background-image: linear-gradient(90deg, rgba(240, 245, 144, 1), rgba(4, 255, 11, 1));
+}
+
+.high-rate {
+  background-image: linear-gradient(
+    90deg,
+    rgba(254, 220, 64, 1),
+    rgba(254, 164, 52, 1) 39%,
+    rgba(255, 72, 33, 1)
+  );
+}

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
-export default function CheckoutForm() {
+export const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
 
