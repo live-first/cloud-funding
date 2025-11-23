@@ -3,6 +3,7 @@
 import { Img } from '@/components/Image'
 import { Modal } from '@/components/Modal'
 import { Select } from '@/components/Select'
+import { useRouter } from 'next/navigation'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import { FaUser } from 'react-icons/fa'
 import { GiPresent } from 'react-icons/gi'
@@ -17,6 +18,7 @@ export const ReturnView = () => {
   const [items, setItems] = useState<ItemContent[]>()
   const [show, setShow] = useState<boolean>(false)
   const [total, setTotal] = useState<number>(0)
+  const router = useRouter()
 
   useEffect(() => {
     setShow(items ? items.length !== 0 : false)
@@ -53,6 +55,10 @@ export const ReturnView = () => {
 
       return list
     })
+  }
+
+  const onClickHandler = () => {
+    router.push('/checkout')
   }
 
   return (
@@ -118,9 +124,12 @@ export const ReturnView = () => {
         />
       </div>
       {show && (
-        <button className='fixed bottom-4 w-10/12 bg-[#001190] hover:bg-[#ff7a05] rounded-full h-[80px] flex justify-between items-center text-white px-12'>
-          <p className='text-2xl font-bold'>支援金額</p>
-          <div className='font-bold text-4xl'>
+        <button
+          className='fixed bottom-4 w-11/12 md:w-10/12 px-6 md:px-12 bg-[#001190] hover:bg-[#ff7a05] rounded-full h-[80px] flex justify-between items-center text-white'
+          onClick={onClickHandler}
+        >
+          <p className='text-2xl font-bold whitespace-nowrap'>支援金額</p>
+          <div className='font-bold text-4xl whitespace-nowrap'>
             {total.toLocaleString()}
             <span className='text-2xl ml-1'>円</span>
           </div>

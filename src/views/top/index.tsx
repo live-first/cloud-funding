@@ -15,8 +15,6 @@ import Link from 'next/link'
 export const TopView = () => {
   return (
     <div className='flex flex-col pb-12'>
-      
-
       <SummaryView />
       <AnthorLinkButton />
     </div>
@@ -109,15 +107,15 @@ const SummaryView = () => {
             <FaLink style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
             SNS
           </p>
-          <div className='flex gap-3 sm:gap-12 justify-center'>
+          <div className='flex gap-12 justify-center'>
             <Link href='https://www.tiktok.com/@rara____wwwww'>
-              <Img src={tiktok.src} cName='h-12' />
+              <Img src={tiktok.src} cName='h-12 w-12 relative' />
             </Link>
             <Link href='https://www.instagram.com/rara____wwwww'>
-              <Img src={insta.src} cName='h-12' />
+              <Img src={insta.src} cName='h-12 w-12 relative' />
             </Link>
             <Link href='https://x.com/rara____wwwww'>
-              <Img src={x.src} cName='h-12' />
+              <Img src={x.src} cName='h-12 w-12 relative' />
             </Link>
           </div>
         </div>
