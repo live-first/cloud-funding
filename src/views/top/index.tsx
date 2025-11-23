@@ -40,7 +40,7 @@ const SummaryView = () => {
   const restDay = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
 
   return (
-    <div className='flex flex-wrap justify-center gap-4 p-6'>
+    <div className='flex flex-wrap justify-center gap-4 px-6 pb-6'>
       <div className='flex w-full sm:w-2/3'>
         <Img src={top.src} cName='rounded-3xl' />
       </div>
