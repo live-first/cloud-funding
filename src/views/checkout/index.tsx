@@ -8,6 +8,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 import { useStore } from '@/store/useStore'
 import { ItemContent } from '../returns'
 import { returnItems } from '@/data/items/returnItems'
+import { useRouter } from 'next/navigation'
 
 const stripePromise = loadStripe(
   'pk_test_51L2xnnFRuEcVJcvhQSsx9Iaf9ZcpHBdbfUmIkpklEzIlOgp6TPU1NoY10A6mzd7j1ti70SCDqTLOLye7onkKOFDl00CiaFmLbt',
@@ -16,6 +17,7 @@ const stripePromise = loadStripe(
 export const CheckoutView = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
   const stored = useStore('return-items').getItem()
+  const router = useRouter()
 
   useEffect(() => {
     const items = stored ? (JSON.parse(stored) as ItemContent[]) : []
@@ -50,6 +52,16 @@ export const CheckoutView = () => {
       <div className=''>
         <SummaryPanel />
         <CheckoutForm />
+        <div className='max-w-md mx-auto p-4 space-y-4'>
+          <button
+            className='bg-gray-500 hover:bg-gray-400 text-white py-2 w-full rounded'
+            onClick={() => {
+              router.back()
+            }}
+          >
+            戻る
+          </button>
+        </div>
       </div>
     </Elements>
   )
