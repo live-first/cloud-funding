@@ -16,7 +16,7 @@ export const SingleViewLayout = (props: LayoutProps) => {
 
   return (
     <div>
-      {header && <header className='fixed w-full h-16 z-50'>{header}</header>}
+      {header && <header className='w-full h-16 z-50'>{header}</header>}
       <main className='min-h-[900px] flex flex-col'>
         {header && <div className='h-16'></div>}
         {allView}

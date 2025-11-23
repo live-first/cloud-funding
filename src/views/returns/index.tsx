@@ -3,11 +3,58 @@
 import { Img } from '@/components/Image'
 import { Modal } from '@/components/Modal'
 import { Select } from '@/components/Select'
-import { ChangeEventHandler } from 'react'
+import { ChangeEventHandler, useEffect, useState } from 'react'
 import { FaUser } from 'react-icons/fa'
 import { GiPresent } from 'react-icons/gi'
 
+type ItemContent = {
+  id: string
+  amount: number
+  count: string //いくつか
+}
+
 export const ReturnView = () => {
+  const [items, setItems] = useState<ItemContent[]>()
+  const [show, setShow] = useState<boolean>(false)
+  const [total, setTotal] = useState<number>(0)
+
+  useEffect(() => {
+    setShow(items ? items.length !== 0 : false)
+    const totalAmount =
+      items?.reduce((sum, item) => {
+        return sum + item.amount * Number(item.count)
+      }, 0) ?? 0
+    setTotal(totalAmount)
+  }, [items, items?.length])
+
+  const onChangeHandler = (id: string, count: string, amount: number) => {
+    setItems((prev) => {
+      const list = prev ? [...prev] : []
+
+      const index = list.findIndex((item) => item.id === id)
+
+      // ▼ count が "0" の場合 → リストから削除
+      if (count === '0') {
+        if (index !== -1) {
+          list.splice(index, 1) // ← 削除
+        }
+        return list
+      }
+
+      // ▼ それ以外は追加 or 更新
+      if (index === -1) {
+        list.push({ id, amount, count })
+      } else {
+        list[index] = {
+          ...list[index],
+          count,
+        }
+      }
+
+      return list
+    })
+  }
+
   return (
     <div className='flex flex-col pt-12 mb-24 pb-24 items-center gap-12'>
       <h2 id='return' className='font-bold text-3xl text-gray-600'>
@@ -21,7 +68,9 @@ export const ReturnView = () => {
           detail='オンラインでトークを実施します。'
           date='2026年1月中'
           supporterCount={1}
-          onChange={() => {}}
+          onChange={(e) => {
+            onChangeHandler('1', e.target.value, 3000)
+          }}
         />
         <ItemPanel
           id='2'
@@ -30,7 +79,9 @@ export const ReturnView = () => {
           detail='券をお渡しします。他メンバーに変更可能です。'
           date='2026年1月中'
           supporterCount={1}
-          onChange={() => {}}
+          onChange={(e) => {
+            onChangeHandler('2', e.target.value, 5000)
+          }}
         />
         <ItemPanel
           id='3'
@@ -39,7 +90,9 @@ export const ReturnView = () => {
           detail='チェキ券の使用は他メンバーでも可能です。'
           date='2026年1月中'
           supporterCount={1}
-          onChange={() => {}}
+          onChange={(e) => {
+            onChangeHandler('3', e.target.value, 10000)
+          }}
         />
         <ItemPanel
           id='4'
@@ -48,7 +101,9 @@ export const ReturnView = () => {
           detail='チェキ券の使用は他メンバーでも可能です。'
           date='2026年1月中'
           supporterCount={1}
-          onChange={() => {}}
+          onChange={(e) => {
+            onChangeHandler('4', e.target.value, 50000)
+          }}
         />
         <ItemPanel
           id='5'
@@ -57,9 +112,20 @@ export const ReturnView = () => {
           detail='チェキ券の使用は他メンバーでも可能です。'
           date='2026年1月中'
           supporterCount={1}
-          onChange={() => {}}
+          onChange={(e) => {
+            onChangeHandler('5', e.target.value, 100000)
+          }}
         />
       </div>
+      {show && (
+        <button className='fixed bottom-4 w-10/12 bg-[#001190] hover:bg-[#ff7a05] rounded-full h-[80px] flex justify-between items-center text-white px-12'>
+          <p className='text-2xl font-bold'>支援金額</p>
+          <div className='font-bold text-4xl'>
+            {total.toLocaleString()}
+            <span className='text-2xl ml-1'>円</span>
+          </div>
+        </button>
+      )}
     </div>
   )
 }
