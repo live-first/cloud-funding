@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { PaymentElement, useStripe, useElements, AddressElement } from '@stripe/react-stripe-js'
 
 export const CheckoutForm = () => {
   const stripe = useStripe()
@@ -32,8 +32,12 @@ export const CheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className='max-w-md mx-auto p-4 space-y-4'>
-      <h2 className='text-xl font-bold'>お支払い情報</h2>
+      <h2 className='text-xl font-bold'>お客さま情報</h2>
 
+      <h2 className='text-xl font-bold'>配送先情報</h2>
+      <AddressElement options={{ mode: 'shipping' }} />
+
+      <h2 className='text-xl font-bold'>お支払い情報</h2>
       <PaymentElement />
 
       {errorMessage && <p className='text-red-600 text-sm mt-2'>{errorMessage}</p>}

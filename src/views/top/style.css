@@ -1,3 +1,9 @@
+.indicator {
+  transition-duration: 2s;
+  transition-property: width;
+  transition-timing-function: ease-out;
+}
+
 .low-rate {
   background-image: linear-gradient(90deg, rgba(251, 213, 251, 1), rgba(149, 233, 243, 1));
 }

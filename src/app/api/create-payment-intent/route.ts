@@ -10,10 +10,7 @@ export async function POST(req: Request) {
     const { amount } = await req.json()
 
     if (!amount || amount <= 0) {
-      return NextResponse.json(
-        { error: '金額が不正です' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: '金額が不正です' }, { status: 400 })
     }
 
     const paymentIntent = await stripe.paymentIntents.create({

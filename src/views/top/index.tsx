@@ -65,7 +65,7 @@ const SummaryView = () => {
           <div className='w-full h-6 bg-gray-400 rounded-full relative'>
             <div
               className={cn(
-                'absolute top-0 h-6 rounded-full',
+                'absolute top-0 h-6 rounded-full indicator',
                 rate > 0.8 ? 'high-rate' : rate > 0.5 ? 'middle-rate' : 'low-rate',
               )}
               style={{ width: rate >= 1 ? '100%' : `${viewRate}%` }}
