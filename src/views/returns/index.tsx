@@ -3,6 +3,8 @@
 import { Img } from '@/components/Image'
 import { Modal } from '@/components/Modal'
 import { Select } from '@/components/Select'
+import { returnItems, ReturnItemType } from '@/data/items/returnItems'
+import { useStore } from '@/store/useStore'
 import { useRouter } from 'next/navigation'
 import { ChangeEventHandler, useEffect, useState } from 'react'
 import { FaUser } from 'react-icons/fa'
@@ -19,6 +21,7 @@ export const ReturnView = () => {
   const [show, setShow] = useState<boolean>(false)
   const [total, setTotal] = useState<number>(0)
   const router = useRouter()
+  const store = useStore('return-items')
 
   useEffect(() => {
     setShow(items ? items.length !== 0 : false)
@@ -53,6 +56,8 @@ export const ReturnView = () => {
         }
       }
 
+      store.setItem(list)
+
       return list
     })
   }
@@ -67,68 +72,29 @@ export const ReturnView = () => {
         リターンを選ぶ
       </h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6 px-4'>
-        <ItemPanel
-          id='1'
-          amount={3000}
-          title='オンライントーク3分'
-          detail='オンラインでトークを実施します。'
-          date='2026年1月中'
-          supporterCount={1}
-          onChange={(e) => {
-            onChangeHandler('1', e.target.value, 3000)
-          }}
-        />
-        <ItemPanel
-          id='2'
-          amount={5000}
-          title='20秒動画+チェキ1枚'
-          detail='券をお渡しします。他メンバーに変更可能です。'
-          date='2026年1月中'
-          supporterCount={1}
-          onChange={(e) => {
-            onChangeHandler('2', e.target.value, 5000)
-          }}
-        />
-        <ItemPanel
-          id='3'
-          amount={10000}
-          title='お礼動画+20秒動画+チェキ券5枚'
-          detail='チェキ券の使用は他メンバーでも可能です。'
-          date='2026年1月中'
-          supporterCount={1}
-          onChange={(e) => {
-            onChangeHandler('3', e.target.value, 10000)
-          }}
-        />
-        <ItemPanel
-          id='4'
-          amount={50000}
-          title='プリ同+私物サイン+チェキ券15枚'
-          detail='チェキ券の使用は他メンバーでも可能です。'
-          date='2026年1月中'
-          supporterCount={1}
-          onChange={(e) => {
-            onChangeHandler('4', e.target.value, 50000)
-          }}
-        />
-        <ItemPanel
-          id='5'
-          amount={100000}
-          title='都内2時間個別オフ会+宿題チェキ券1枚+お手紙+チェキ券30枚'
-          detail='チェキ券の使用は他メンバーでも可能です。'
-          date='2026年1月中'
-          supporterCount={1}
-          onChange={(e) => {
-            onChangeHandler('5', e.target.value, 100000)
-          }}
-        />
+        {returnItems.map((item, index) => {
+          return (
+            <ItemPanel
+              key={index}
+              id={item.id}
+              amount={item.amount}
+              title={item.title}
+              detail={item.detail}
+              date={item.date}
+              supporterCount={1}
+              onChange={(e) => {
+                onChangeHandler(item.id, e.target.value, item.amount)
+              }}
+            />
+          )
+        })}
       </div>
       {show && (
         <button
-          className='fixed bottom-4 w-11/12 md:w-10/12 px-6 md:px-12 bg-[#001190] hover:bg-[#ff7a05] rounded-full h-[80px] flex justify-between items-center text-white'
+          className='fixed bottom-4 w-11/12 md:w-10/12 px-6 md:px-12 bg-[#001190] hover:bg-[#ff7a05] focus:bg-[#ff7a05] rounded-full h-[80px] flex justify-between items-center text-white'
           onClick={onClickHandler}
         >
-          <p className='text-2xl font-bold whitespace-nowrap'>支援金額</p>
+          <p className='text-2xl font-bold whitespace-nowrap'>支援する</p>
           <div className='font-bold text-4xl whitespace-nowrap'>
             {total.toLocaleString()}
             <span className='text-2xl ml-1'>円</span>
@@ -140,15 +106,9 @@ export const ReturnView = () => {
 }
 
 type ItemProps = {
-  id: string
-  img?: string
-  amount: number
-  title?: string
-  detail: string
-  date?: string
   supporterCount?: number
   onChange: ChangeEventHandler<HTMLSelectElement>
-}
+} & ReturnItemType
 
 const ItemPanel = (props: ItemProps) => {
   const { id, img, amount, title, detail, date, supporterCount, onChange } = props

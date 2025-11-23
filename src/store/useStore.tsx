@@ -1,25 +1,25 @@
 export const useStore = (key: string) => {
   const getItem = () => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem(key)
+      return sessionStorage.getItem(key)
     }
   }
   const setItem = (item: object | string | number) => {
     if (typeof window !== 'undefined') {
       const obj = JSON.stringify(item)
-      localStorage.setItem(key, obj)
+      sessionStorage.setItem(key, obj)
     }
   }
 
   const removeItem = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem(key)
+      sessionStorage.removeItem(key)
     }
   }
 
   const clearItem = () => {
     if (typeof window !== 'undefined') {
-      localStorage.clear()
+      sessionStorage.clear()
     }
   }
 

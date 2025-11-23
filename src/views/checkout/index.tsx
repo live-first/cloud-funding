@@ -33,7 +33,16 @@ export const CheckoutView = () => {
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <CheckoutForm />
+      <div className=''>
+        <SummaryPanel />
+        <CheckoutForm />
+      </div>
     </Elements>
   )
+}
+
+const SummaryPanel = () => {
+  return <div className='max-w-md mx-auto p-4 space-y-4'>
+    <h2 className='text-xl font-bold'>内容確認</h2>
+  </div>
 }

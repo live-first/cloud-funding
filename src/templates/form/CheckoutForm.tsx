@@ -32,7 +32,7 @@ export const CheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className='max-w-md mx-auto p-4 space-y-4'>
-      <h1 className='text-xl font-bold'>お支払い情報</h1>
+      <h2 className='text-xl font-bold'>お支払い情報</h2>
 
       <PaymentElement />
 
