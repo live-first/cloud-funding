@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     }
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount, // 価格（1,000円）
+      amount: amount,
       currency: 'jpy',
       automatic_payment_methods: { enabled: true },
     })

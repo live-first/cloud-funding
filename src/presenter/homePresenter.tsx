@@ -8,8 +8,6 @@ export const homePresenter = () => {
   const { getCloudFund } = useCloudFundApi()
   const res = getCloudFund.data?.data as CloudFundResponseType[]
 
-  console.log(res)
-
   // 商品毎の売り上げを計算する
   const result = res?.map((p) => {
     const item = returnItems.find((r) => r.id === String(p.id))
