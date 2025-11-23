@@ -11,6 +11,7 @@ import { RiMoneyCnyCircleFill } from 'react-icons/ri'
 import { FaUsers } from 'react-icons/fa6'
 import { FaClock, FaLink } from 'react-icons/fa'
 import Link from 'next/link'
+import { homePresenter } from '@/presenter/homePresenter'
 
 export const TopView = () => {
   return (
@@ -22,14 +23,15 @@ export const TopView = () => {
 }
 
 const SummaryView = () => {
+  const {grandTotal, supporterTotal} = homePresenter()
   // 目標金額
   const goal = 1000000
   // 現在の支援総額
-  const current = 550000
+  const current = grandTotal
   // 支援者数
-  const people = 100
+  const people = supporterTotal
   // 締切日時
-  const deadline = new Date(2025, 11, 28, 0, 0, 0)
+  const deadline = new Date(2025, 11, 30, 0, 0, 0)
 
   const rate = current / goal
   const viewRate = (rate * 100).toFixed(1)
@@ -83,7 +85,7 @@ const SummaryView = () => {
             </p>
           </div>
           <div className='flex flex-col gap-3 w-1/2 md:w-full'>
-            {restDay >= 0 ? (
+            {restDay >= 0 && (
               <>
                 <p className='flex font-bold text-lg'>
                   <FaClock style={{ transform: 'translateY(3px)', marginRight: '4px' }} />
@@ -94,13 +96,14 @@ const SummaryView = () => {
                   <span className='text-2xl ml-1'>日</span>
                 </p>
               </>
-            ) : (
-              <div className='flex flex-col w-full py-2 bg-gray-700 text-white font-bold items-center'>
-                本プロジェクトは終了しました
-              </div>
             )}
           </div>
         </div>
+        {restDay < 0 && (
+          <div className='flex flex-col w-full py-2 bg-gray-700 text-white font-bold items-center'>
+            本プロジェクトは終了しました
+          </div>
+        )}
 
         <div className='flex flex-col gap-3'>
           <p className='flex font-bold text-lg'>

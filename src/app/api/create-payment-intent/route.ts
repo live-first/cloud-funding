@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
     if (!amount || amount <= 0) {
       return NextResponse.json(
-        { error: `金額が不正です${amount}` },
+        { error: '金額が不正です' },
         { status: 400 }
       )
     }

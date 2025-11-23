@@ -4,6 +4,7 @@ import { Img } from '@/components/Image'
 import { Modal } from '@/components/Modal'
 import { Select } from '@/components/Select'
 import { returnItems, ReturnItemType } from '@/data/items/returnItems'
+import { homePresenter } from '@/presenter/homePresenter'
 import { useStore } from '@/store/useStore'
 import { useRouter } from 'next/navigation'
 import { ChangeEventHandler, useEffect, useState } from 'react'
@@ -22,6 +23,7 @@ export const ReturnView = () => {
   const [total, setTotal] = useState<number>(0)
   const router = useRouter()
   const store = useStore('return-items')
+  const { res } = homePresenter()
 
   useEffect(() => {
     setShow(items ? items.length !== 0 : false)
@@ -81,7 +83,7 @@ export const ReturnView = () => {
               title={item.title}
               detail={item.detail}
               date={item.date}
-              supporterCount={1}
+              supporterCount={res?.find((r) => r.id === item.id)?.supporterCount}
               onChange={(e) => {
                 onChangeHandler(item.id, e.target.value, item.amount)
               }}
