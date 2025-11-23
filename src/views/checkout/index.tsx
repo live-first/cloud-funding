@@ -10,9 +10,7 @@ import { ItemContent } from '../returns'
 import { returnItems } from '@/data/items/returnItems'
 import { useRouter } from 'next/navigation'
 
-const stripePromise = loadStripe(
-  'pk_test_51L2xnnFRuEcVJcvhQSsx9Iaf9ZcpHBdbfUmIkpklEzIlOgp6TPU1NoY10A6mzd7j1ti70SCDqTLOLye7onkKOFDl00CiaFmLbt',
-)
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY!)
 
 export const CheckoutView = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
