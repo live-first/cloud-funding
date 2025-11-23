@@ -10,7 +10,7 @@ import { ChangeEventHandler, useEffect, useState } from 'react'
 import { FaUser } from 'react-icons/fa'
 import { GiPresent } from 'react-icons/gi'
 
-type ItemContent = {
+export type ItemContent = {
   id: string
   amount: number
   count: string //いくつか

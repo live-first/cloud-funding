@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react'
 import { Elements } from '@stripe/react-stripe-js'
 import { CheckoutForm } from '@/templates/form/CheckoutForm'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import { useStore } from '@/store/useStore'
+import { ItemContent } from '../returns'
+import { returnItems } from '@/data/items/returnItems'
 
 const stripePromise = loadStripe(
   'pk_test_51L2xnnFRuEcVJcvhQSsx9Iaf9ZcpHBdbfUmIkpklEzIlOgp6TPU1NoY10A6mzd7j1ti70SCDqTLOLye7onkKOFDl00CiaFmLbt',
@@ -12,13 +15,24 @@ const stripePromise = loadStripe(
 
 export const CheckoutView = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
+  const stored = useStore('return-items').getItem()
 
   useEffect(() => {
+    const items = stored ? (JSON.parse(stored) as ItemContent[]) : []
+
+    const amount =
+      items?.reduce((sum, item) => {
+        return sum + item.amount * Number(item.count)
+      }, 0) ?? 0
     // ページロードで PaymentIntent 作成
-    fetch('/api/create-payment-intent', { method: 'POST' })
+    fetch('/api/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount }),
+    })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
-  }, [])
+  }, [stored])
 
   if (!clientSecret)
     return (
@@ -42,7 +56,36 @@ export const CheckoutView = () => {
 }
 
 const SummaryPanel = () => {
-  return <div className='max-w-md mx-auto p-4 space-y-4'>
-    <h2 className='text-xl font-bold'>内容確認</h2>
-  </div>
+  const stored = useStore('return-items').getItem()
+
+  if (!stored) {
+    return <div>データがありません</div>
+  }
+  const items = JSON.parse(stored) as ItemContent[]
+
+  const totalAmount =
+    items?.reduce((sum, item) => {
+      return sum + item.amount * Number(item.count)
+    }, 0) ?? 0
+
+  return (
+    <div className='max-w-md mx-auto p-4 space-y-4'>
+      <h2 className='text-xl font-bold'>内容確認</h2>
+      {items.map((item, index) => {
+        const data = returnItems.filter((it) => it.id === item.id)[0]
+        return (
+          <div key={index} className='flex flex-col border-b border-b-gray-700'>
+            <p>
+              ・{data.title}　　{data.amount}円 × {item.count}
+            </p>
+            <p className='text-end'>{(data.amount * Number(item.count)).toLocaleString()} 円</p>
+          </div>
+        )
+      })}
+      <div className='flex justify-between'>
+        <p>合計支援金額</p>
+        <p>{totalAmount.toLocaleString()} 円</p>
+      </div>
+    </div>
+  )
 }
