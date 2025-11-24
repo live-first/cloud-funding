@@ -10,7 +10,7 @@ import { returnItems } from '@/data/items/returnItems'
 import { useRouter } from 'next/navigation'
 import { PaymentElement, useStripe, useElements, AddressElement } from '@stripe/react-stripe-js'
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY!)
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
 export const CheckoutView = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)

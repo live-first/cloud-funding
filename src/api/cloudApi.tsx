@@ -22,12 +22,12 @@ export const useCloudFundApi = () => {
   })
 
   const addFund = useMutation({
-    mutationFn: (data: EventType) => {
+    mutationFn: () => {
       return axios.post(
         URL,
-        encodeURI(
-          `title=${data.title}&date=${data.date}&placeName=${data.placeName}&openTime=${data.openTime}&startTime=${data.startTime}&img=${data.img}&context=${data.context}`,
-        ),
+        // encodeURI(
+        //   // `name=${data.name}&date=${data.date}&placeName=${data.placeName}&openTime=${data.openTime}&startTime=${data.startTime}&img=${data.img}&context=${data.context}`,
+        // ),
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         },
