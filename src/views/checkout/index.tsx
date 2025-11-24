@@ -9,6 +9,13 @@ import { ItemContent } from '../returns'
 import { returnItems } from '@/data/items/returnItems'
 import { useRouter } from 'next/navigation'
 import { PaymentElement, useStripe, useElements, AddressElement } from '@stripe/react-stripe-js'
+import z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { contact, email, name } from '@/components/schema'
+import { init, send } from '@emailjs/browser'
+import { useForm } from 'react-hook-form'
+import { TextFieldForm } from '@/templates/form/TextFieldForm'
+import { TextAreaForm } from '@/templates/form/TextAreaForm'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
@@ -107,8 +114,41 @@ const CheckoutForm = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
+  const PersonSchema = z.object({
+    name: name,
+    email: email,
+    content: contact,
+  })
+
+  type PersonType = z.infer<typeof PersonSchema>
+
+  const sendEmail = async (data: PersonType) => {
+    try {
+      init('IdTWr2VgMdRiCW1AG')
+      await send('service_livefirst', 'get_aime_notification', data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const {
+    watch,
+    register,
+    formState: { errors },
+  } = useForm<PersonType>({
+    mode: 'onChange',
+    resolver: zodResolver(PersonSchema),
+  })
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const { name, email, content } = watch()
+
+    sendEmail({
+      name: name,
+      email: email,
+      content: content,
+    })
 
     if (!stripe || !elements) return
     setLoading(true)
@@ -130,7 +170,27 @@ const CheckoutForm = () => {
   return (
     <form onSubmit={handleSubmit} className='max-w-md mx-auto p-4 space-y-4'>
       <h2 className='text-xl font-bold'>お客さま情報</h2>
-
+      <TextFieldForm
+        title='名前'
+        required
+        placeholder='山田　太郎'
+        register={register('name')}
+        error={errors.name?.message}
+      />
+      <TextFieldForm
+        title='メールアドレス'
+        required
+        placeholder='mail@example.com'
+        register={register('email')}
+        error={errors.email?.message}
+        type='email'
+      />
+      <TextAreaForm
+        title='コメント'
+        required
+        register={register('content')}
+        error={errors.content?.message}
+      />
       <h2 className='text-xl font-bold'>配送先情報</h2>
       <AddressElement options={{ mode: 'shipping' }} />
 
