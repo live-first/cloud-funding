@@ -2,7 +2,7 @@
 
 import { Img } from '@/components/Image'
 import { Modal } from '@/components/Modal'
-import { Select } from '@/components/Select'
+import { Options, Select } from '@/components/Select'
 import { returnItems, ReturnItemType } from '@/data/items/returnItems'
 import { homePresenter } from '@/presenter/homePresenter'
 import { useStore } from '@/store/useStore'
@@ -84,6 +84,7 @@ export const ReturnView = () => {
               detail={item.detail}
               date={item.date}
               supporterCount={res?.find((r) => r.id === item.id)?.supporterCount}
+              maxCount={[1, 2, 3, 4, 5]}
               onChange={(e) => {
                 onChangeHandler(item.id, e.target.value, item.amount)
               }}
@@ -109,11 +110,12 @@ export const ReturnView = () => {
 
 type ItemProps = {
   supporterCount?: number
+  maxCount: number[]
   onChange: ChangeEventHandler<HTMLSelectElement>
 } & ReturnItemType
 
 const ItemPanel = (props: ItemProps) => {
-  const { id, img, amount, title, detail, date, supporterCount, onChange } = props
+  const { id, img, amount, title, detail, date, supporterCount, maxCount, onChange } = props
 
   const DetailButton = () => {
     return <div className='p-1 text-cyan-800'>詳細はこちら</div>
@@ -159,18 +161,9 @@ const ItemPanel = (props: ItemProps) => {
       </div>
       <Select
         id={id}
-        options={[
-          { value: 1, label: '1' },
-          { value: 2, label: '2' },
-          { value: 3, label: '3' },
-          { value: 4, label: '4' },
-          { value: 5, label: '5' },
-          { value: 6, label: '6' },
-          { value: 7, label: '7' },
-          { value: 8, label: '8' },
-          { value: 9, label: '9' },
-          { value: 10, label: '10' },
-        ]}
+        options={maxCount.map((count) => {
+          return { value: count, label: `${count}` } as Options
+        })}
         onChange={onChange}
       />
     </div>

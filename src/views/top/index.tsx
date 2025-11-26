@@ -25,7 +25,7 @@ export const TopView = () => {
 const SummaryView = () => {
   const {grandTotal, supporterTotal} = homePresenter()
   // 目標金額
-  const goal = 1200000
+  const goal = 500000
   // 現在の支援総額
   const current = grandTotal
   // 支援者数
@@ -77,7 +77,7 @@ const SummaryView = () => {
         <div className='flex md:flex-col md:gap-6'>
           <div className='flex flex-col gap-3 w-1/2 md:w-full'>
             <p className='flex font-bold text-lg'>
-              <FaUsers style={{ transform: 'translateY(3px)', marginRight: '4px' }} /> 支援者数
+              <FaUsers style={{ transform: 'translateY(3px)', marginRight: '4px' }} />支援者数
             </p>
             <p className='font-bold text-gray-800 text-4xl'>
               {people.toLocaleString()}
