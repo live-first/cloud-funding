@@ -16,6 +16,7 @@ import { init, send } from '@emailjs/browser'
 import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '@/templates/form/TextFieldForm'
 import { TextAreaForm } from '@/templates/form/TextAreaForm'
+import { useCloudFundApi } from '@/api/cloudApi'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
@@ -110,9 +111,13 @@ const SummaryPanel = () => {
 const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
+  const { addFund } = useCloudFundApi()
+  const stored = useStore('return-items').getItem()
 
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const items = JSON.parse(stored!) as ItemContent[]
 
   const PersonSchema = z.object({
     name: name,
@@ -150,21 +155,30 @@ const CheckoutForm = () => {
       content: content,
     })
 
-    if (!stripe || !elements) return
-    setLoading(true)
-    setErrorMessage(null)
+    await addFund
+      .mutateAsync({
+        name: name,
+        email: email,
+        items: items,
+        content: content,
+      })
+      .then(async () => {
+        if (!stripe || !elements) return
+        setLoading(true)
+        setErrorMessage(null)
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/success`,
-      },
-    })
+        const { error } = await stripe.confirmPayment({
+          elements,
+          confirmParams: {
+            return_url: `${window.location.origin}/success`,
+          },
+        })
 
-    if (error) {
-      setErrorMessage(error.message || 'エラーが発生しました')
-      setLoading(false)
-    }
+        if (error) {
+          setErrorMessage(error.message || 'エラーが発生しました')
+          setLoading(false)
+        }
+      })
   }
 
   return (
