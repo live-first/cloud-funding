@@ -2,7 +2,6 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { axios } from './baseApi'
-import { ItemContent } from '@/views/returns'
 
 export type CloudFundResponseType = {
   id: string
@@ -10,8 +9,12 @@ export type CloudFundResponseType = {
   count: number
 }
 
-export type Request = {
-  items: ItemContent[]
+export type CloudRequest = {
+  product1: string
+  product2: string
+  product3: string
+  product4: string
+  product5: string
   name: string
   email: string
   content: string
@@ -30,11 +33,11 @@ export const useCloudFundApi = () => {
   })
 
   const addFund = useMutation({
-    mutationFn: (data: Request) => {
+    mutationFn: (data: CloudRequest) => {
       return axios.post(
         URL,
         encodeURI(
-          `name=${data.name}&email=${data.email}&content=${data.content}&product1=${data.items[0].count}&product2=${data.items[1].count}&product3=${data.items[2].count}&product4=${data.items[3].count}&product5=${data.items[4].count}`,
+          `name=${data.name}&email=${data.email}&content=${data.content}&product1=${data.product1}&product2=${data.product2}&product3=${data.product3}&product4=${data.product4}&product5=${data.product5}`,
         ),
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -42,7 +45,7 @@ export const useCloudFundApi = () => {
       )
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['events'] })
+      queryClient.invalidateQueries({ queryKey: ['cloud-fund'] })
     },
   })
 

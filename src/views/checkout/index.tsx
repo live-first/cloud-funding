@@ -16,7 +16,7 @@ import { init, send } from '@emailjs/browser'
 import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '@/templates/form/TextFieldForm'
 import { TextAreaForm } from '@/templates/form/TextAreaForm'
-import { useCloudFundApi } from '@/api/cloudApi'
+import { CloudRequest, useCloudFundApi } from '@/api/cloudApi'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
@@ -55,7 +55,7 @@ export const CheckoutView = () => {
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <div className=''>
+      <div className='flex flex-col pb-12'>
         <SummaryPanel />
         <CheckoutForm />
         <div className='max-w-md mx-auto p-4 space-y-4'>
@@ -127,10 +127,10 @@ const CheckoutForm = () => {
 
   type PersonType = z.infer<typeof PersonSchema>
 
-  const sendEmail = async (data: PersonType) => {
+  const sendEmail = async (data: CloudRequest) => {
     try {
-      init('IdTWr2VgMdRiCW1AG')
-      await send('service_livefirst', 'get_aime_notification', data)
+      init(process.env.EMAIL_ID!)
+      await send(process.env.EMAIL_SERVICE!, 'template_4pf93tg', data)
     } catch (error) {
       console.error(error)
     }
@@ -149,36 +149,36 @@ const CheckoutForm = () => {
     e.preventDefault()
     const { name, email, content } = watch()
 
-    sendEmail({
+    const request: CloudRequest = {
       name: name,
       email: email,
       content: content,
+      product1: items.find((item) => item.id === '1')?.count.toString() ?? '0',
+      product2: items.find((item) => item.id === '2')?.count.toString() ?? '0',
+      product3: items.find((item) => item.id === '3')?.count.toString() ?? '0',
+      product4: items.find((item) => item.id === '4')?.count.toString() ?? '0',
+      product5: items.find((item) => item.id === '5')?.count.toString() ?? '0',
+    }
+
+    await addFund.mutateAsync(request).then(async () => {
+      if (!stripe || !elements) return
+      setLoading(true)
+      setErrorMessage(null)
+
+      await sendEmail(request)
+
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/success`,
+        },
+      })
+
+      if (error) {
+        setErrorMessage(error.message || 'エラーが発生しました')
+        setLoading(false)
+      }
     })
-
-    await addFund
-      .mutateAsync({
-        name: name,
-        email: email,
-        items: items,
-        content: content,
-      })
-      .then(async () => {
-        if (!stripe || !elements) return
-        setLoading(true)
-        setErrorMessage(null)
-
-        const { error } = await stripe.confirmPayment({
-          elements,
-          confirmParams: {
-            return_url: `${window.location.origin}/success`,
-          },
-        })
-
-        if (error) {
-          setErrorMessage(error.message || 'エラーが発生しました')
-          setLoading(false)
-        }
-      })
   }
 
   return (
