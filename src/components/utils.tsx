@@ -3,5 +3,5 @@ export const cn = (...classes: (string | false | null | undefined)[]) => {
 }
 
 export const getVercelEnv = () => {
-  return process.env.VERCEL_ENV ?? 'unknown'
+  return process.env.VERCEL_ENV ?? 'development'
 }

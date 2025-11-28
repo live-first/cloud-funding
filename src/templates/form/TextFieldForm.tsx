@@ -14,7 +14,7 @@ export const TextFieldForm = (props: TextFieldProps) => {
   return (
     <FormField title={title} required={required} description={description} error={error}>
       <input
-        className={`border px-4 py-2 rounded-lg ${error && 'border border-red-500'}`}
+        className={`border px-4 py-2 rounded-lg bg-white ${error && 'border border-red-500'}`}
         type={type}
         placeholder={placeholder}
         value={value}
