@@ -55,7 +55,7 @@ export const CheckoutView = () => {
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <div className='flex flex-col pb-12'>
+      <div className='pb-12'>
         <SummaryPanel />
         <CheckoutForm />
         <div className='max-w-md mx-auto p-4 space-y-4'>
@@ -128,12 +128,8 @@ const CheckoutForm = () => {
   type PersonType = z.infer<typeof PersonSchema>
 
   const sendEmail = async (data: CloudRequest) => {
-    try {
-      init(process.env.EMAIL_ID!)
-      await send(process.env.EMAIL_SERVICE!, 'template_4pf93tg', data)
-    } catch (error) {
-      console.error(error)
-    }
+    init('IdTWr2VgMdRiCW1AG')
+    await send('service_livefirst', 'cloud-fund-notification', data)
   }
 
   const {
@@ -148,6 +144,8 @@ const CheckoutForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const { name, email, content } = watch()
+    setLoading(true)
+    setErrorMessage(null)
 
     const request: CloudRequest = {
       name: name,
@@ -160,12 +158,14 @@ const CheckoutForm = () => {
       product5: items.find((item) => item.id === '5')?.count.toString() ?? '0',
     }
 
-    await addFund.mutateAsync(request).then(async () => {
-      if (!stripe || !elements) return
-      setLoading(true)
-      setErrorMessage(null)
+    if (!stripe || !elements) return
 
-      await sendEmail(request)
+    await sendEmail(request).then(async () => {
+      try {
+        await addFund.mutateAsync(request)
+      } catch (e) {
+        console.error(e)
+      }
 
       const { error } = await stripe.confirmPayment({
         elements,
