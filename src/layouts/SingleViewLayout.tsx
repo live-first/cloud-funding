@@ -1,6 +1,5 @@
 'use client'
 
-import { getVercelEnv } from '@/components/utils'
 import { Container } from '@mui/material'
 import { ReactNode } from 'react'
 
@@ -27,10 +26,6 @@ export const SingleViewLayout = (props: LayoutProps) => {
         {bottomView}
       </main>
       <footer>{footer}</footer>
-
-      {getVercelEnv() !== 'production' && (
-        <div className='fixed top-2 bg-amber-300 font-bold px-12 -rotate-12'>{getVercelEnv()}</div>
-      )}
     </div>
   )
 }
