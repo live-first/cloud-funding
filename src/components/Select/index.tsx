@@ -17,10 +17,11 @@ export type SelectProps = {
   className?: string
   options: Options[]
   onChange: ChangeEventHandler<HTMLSelectElement>
+  disabled?: boolean
 }
 
 export const Select = (props: SelectProps) => {
-  const { id, required, size = 'md', error, className, options, onChange } = props
+  const { id, required, size = 'md', error, className, options, onChange, disabled } = props
 
   return (
     <label className='selectbox'>
@@ -29,6 +30,7 @@ export const Select = (props: SelectProps) => {
         required={required}
         className={cn(`select-${size}`, error && 'error', className)}
         onChange={onChange}
+        disabled={disabled}
       >
         <option value={0}>選択してください</option>
         {options.map((option, index) => (
