@@ -6,6 +6,8 @@ import { returnItems } from '@/data/items/returnItems'
 export const useHomePresenter = () => {
   const { getCloudFund } = useCloudFundApi()
   const res = getCloudFund.data?.data as CloudFundResponseType[]
+  // ローディング状態を取得
+  const isLoading = getCloudFund.isLoading
 
   // 商品毎の売り上げを計算する
   const result = res?.map((p) => {
@@ -33,5 +35,6 @@ export const useHomePresenter = () => {
     grandTotal,
     supporterTotal,
     res,
+    isLoading, // 返り値に追加
   }
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormField, FormFieldProps } from '.'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
 type TextAreaProps = FormFieldProps & {
   placeholder?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  register: any
+  register: UseFormRegisterReturn
 }
 
 export const TextAreaForm = (props: TextAreaProps) => {
@@ -12,9 +12,13 @@ export const TextAreaForm = (props: TextAreaProps) => {
   return (
     <FormField title={title} required={required} description={description} error={error}>
       <textarea
-        className={`border px-4 py-2 rounded-lg min-h-36 bg-white ${
-          error && 'border border-red-500'
-        }`}
+        className={`
+          w-full px-4 py-3 rounded-xl bg-white border border-gray-200 
+          text-gray-700 placeholder-gray-400 min-h-36
+          focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent
+          transition-all resize-none
+          ${error ? 'border-red-400 focus:ring-red-200' : ''}
+        `}
         placeholder={placeholder}
         {...register}
       />

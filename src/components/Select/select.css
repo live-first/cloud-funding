@@ -1,51 +1,78 @@
+
 .selectbox {
   position: relative;
-}
-
-.selectbox::before,
-.selectbox::after {
-  position: absolute;
-  content: '';
-  pointer-events: none;
+  display: block;
+  width: 100%;
 }
 
 .selectbox::before {
+  position: absolute;
+  top: 0;
   right: 0;
-  display: inline-block;
-  width: 2.8em;
-  height: 2.8em;
-  border-radius: 0 3px 3px 0;
-  background-color: #b99bce;
+  width: 3.5em;
+  height: 100%;
+  border-radius: 0 12px 12px 0;
+  background-color: var(--color-primary);
   content: '';
+  pointer-events: none;
+  z-index: 1;
 }
 
 .selectbox::after {
   position: absolute;
   top: 50%;
-  right: 1.4em;
-  transform: translate(50%, -50%) rotate(45deg);
-  width: 6px;
-  height: 6px;
-  border-bottom: 3px solid #fff;
+  right: 1.3em; 
+  transform: translate(50%, -60%) rotate(45deg);
+  width: 10px; 
+  height: 10px;
+  border-bottom: 3px solid #fff; 
   border-right: 3px solid #fff;
   content: '';
+  pointer-events: none;
+  z-index: 2;
 }
 
 .selectbox select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  min-width: 230px;
-  height: 2.8em;
-  padding: 0.4em 3.6em 0.4em 0.8em;
-  border: 1px solid #b99bce;
-  border-radius: 3px;
-  color: #333333;
-  font-size: 1em;
-  cursor: pointer;
   width: 100%;
+  min-width: 230px;
+  height: 4rem; 
+  padding: 0.5em 4em 0.5em 1.5em; 
+  
+  border: 2px solid var(--color-primary);
+  border-radius: 12px;
+  background-color: #fffbfd;
+  
+  color: #5a5a5a;
+  font-family: var(--font-sans);
+  font-size: 1.25rem; 
+  font-weight: bold;
+  
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.selectbox select option {
+  background-color: #fff;
+  color: #333;
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
+.selectbox select:hover {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 158, 187, 0.2);
 }
 
 .selectbox select:focus {
-  outline: 1px solid #b99bce;
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(162, 210, 255, 0.3);
+}
+
+.selectbox select.error {
+  border-color: var(--color-error);
+  background-color: #fff0f0;
 }

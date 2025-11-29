@@ -12,13 +12,47 @@ import { FaUsers } from 'react-icons/fa6'
 import { FaClock, FaLink, FaHeart } from 'react-icons/fa'
 import Link from 'next/link'
 import { useHomePresenter } from '@/presenter/homePresenter'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 
 export const TopView = () => {
+  // ここでデータを取得し、ローディング状態を監視します
+  const { isLoading } = useHomePresenter()
+
   return (
-    <div className='flex flex-col pb-12'>
-      <SummaryView />
-      <AnthorLinkButton />
-    </div>
+    <>
+      {/* ▼ 全画面ローディングオーバーレイ */}
+      {isLoading && (
+        // 変更点1: 親要素に items-center justify-center を追加し、画面中央寄せを確実にします。
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-br from-pink-200/90 via-purple-200/90 to-blue-200/90 backdrop-blur-sm transition-opacity duration-500 px-4">
+          {/* 変更点2: m-auto は削除します（親要素で制御するため）。 */}
+          <div className="bg-white p-10 rounded-[3rem] shadow-2xl shadow-pink-200/50 flex flex-col items-center gap-8 max-w-sm w-full border-4 border-pink-200">
+            {/* 変更点3: アニメーションの枠自体も flex で中央寄せし、ドットが中心に来るようにします */}
+            <div className="w-48 h-48 relative flex items-center justify-center">
+              {/* 光彩（変更なし） */}
+              <div className="absolute inset-0 bg-pink-300 rounded-full filter blur-2xl opacity-30 animate-pulse"></div>
+              {/* Lottieアニメーション（変更なし） */}
+              <DotLottieReact
+                src='https://lottie.host/9f202484-3b8b-4612-97f4-f882bcc5765a/Cfy5D3cNkG.lottie'
+                loop
+                autoplay
+                className="relative z-10 w-full h-full"
+              />
+            </div>
+            {/* テキスト（変更なし） */}
+            <p className="text-pink-500 font-bold text-2xl text-center tracking-widest leading-loose drop-shadow-sm">
+              読み込み中です...<br />
+              <span className="text-lg text-blue-400">少々お待ちください♥</span>
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/*メインコンテンツ*/}
+      <div className='flex flex-col pb-12 animate-fade-in'>
+        <SummaryView />
+        <AnthorLinkButton />
+      </div>
+    </>
   )
 }
 
@@ -151,12 +185,10 @@ const AnthorLinkButton = () => {
       <Link href='#return' className='w-full sm:w-2/3 group'>
         <div className='flex items-center justify-center py-4 rounded-full bg-gradient-to-r from-pink-200 to-blue-200 shadow-md group-hover:shadow-lg transition-all gap-2'>
           <FaHeart className="text-pink-400 bg-white rounded-full p-1 w-8 h-8 shrink-0" />
-          
           <p className='text-lg md:text-2xl font-bold text-white drop-shadow-sm whitespace-nowrap'>
              プロジェクトを支援する
           </p>
-          
-          <div className='text-lg md:text-xl text-white animate-bounce shrink-0'>▼</div>
+          <div className='text-lg md:text-xl text-white animate-bounce shrink-0 pt-1'>▼</div>
         </div>
       </Link>
       <div className='flex bg-blue-50 p-6 w-full sm:w-[400px] rounded-2xl text-sm text-gray-600 leading-relaxed border border-blue-100'>
