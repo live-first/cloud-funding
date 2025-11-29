@@ -85,7 +85,7 @@ export const CheckoutView = () => {
             type='button'
             className='bg-gray-500 hover:bg-gray-400 text-white items-center'
             onClick={() => {
-              router.back()
+              router.push('/')
             }}
           >
             戻る
@@ -180,7 +180,6 @@ const CheckoutForm = () => {
   const elements = useElements()
   const { addFund } = useCloudFundApi()
 
-  const router = useRouter()
   const { sendNotification, setNotice, sendEmail, setSending, request } = useCheckoutPresenter()
 
   const [loading, setLoading] = useState(false)
@@ -288,11 +287,10 @@ const CheckoutForm = () => {
             loading ? (
               '処理中…'
             ) : (
-              <>
-                <label>
-                  <FaShieldAlt /> 決済を確定して支援する
-                </label>
-              </>
+              <div className='flex'>
+                <FaShieldAlt style={{ transform: 'translateY(2px)', marginRight: '6px' }} />
+                決済を確定して支援する
+              </div>
             )
           }
           variant='Primary'
@@ -307,15 +305,6 @@ const CheckoutForm = () => {
         <p className='text-xs text-center text-gray-400'>
           ※ SSL暗号化通信により、情報は安全に送信されます
         </p>
-        <Button
-          type='button'
-          className='bg-gray-500 hover:bg-gray-400 text-white items-center'
-          onClick={() => {
-            router.back()
-          }}
-        >
-          戻る
-        </Button>
       </div>
     </form>
   )

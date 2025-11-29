@@ -75,8 +75,8 @@ const SummaryView = () => {
 
   return (
     <div className='flex flex-wrap justify-center gap-6 px-4 md:px-6 pb-6'>
-      <div className='flex w-full sm:w-2/3 shadow-pink-100 shadow-xl rounded-3xl overflow-hidden'>
-        <Img src={top.src} cName='rounded-3xl hover:scale-105 transition-transform duration-700' />
+      <div className='flex w-full sm:w-2/3 shadow-pink-100 shadow-xl rounded-3xl overflow-hidden aspect-video'>
+        <Img src={top.src} cName='rounded-3xl hover:scale-105 transition-transform duration-700 object-cover' />
       </div>
 
       <div className='flex flex-col bg-white/80 backdrop-blur-sm gap-6 p-6 w-full sm:w-[400px] rounded-3xl shadow-lg border border-pink-100'>
@@ -188,7 +188,7 @@ const AnthorLinkButton = () => {
           <p className='text-lg md:text-2xl font-bold text-white drop-shadow-sm whitespace-nowrap'>
              プロジェクトを支援する
           </p>
-          <div className='text-lg md:text-xl text-white animate-bounce shrink-0 pt-1'>▼</div>
+          <div className='text-lg md:text-xl text-white shrink-0'>▼</div>
         </div>
       </Link>
       <div className='flex bg-blue-50 p-6 w-full sm:w-[400px] rounded-2xl text-sm text-gray-600 leading-relaxed border border-blue-100'>
