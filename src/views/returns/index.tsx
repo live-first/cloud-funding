@@ -85,7 +85,7 @@ export const ReturnView = () => {
               detail={item.detail}
               date={item.date}
               supporterCount={res?.find((r) => r.id === item.id)?.supporterCount}
-              maxCount={[1, 2, 3, 4, 5]}
+              maxCount={item.maxCount}
               onChange={(e) => {
                 onChangeHandler(item.id, e.target.value, item.amount)
               }}
@@ -101,7 +101,7 @@ export const ReturnView = () => {
         >
           {/* 文言を「支援する」に変更し、サイズを調整 */}
           <p className='text-xl md:text-3xl font-bold whitespace-nowrap'>支援する</p>
-          
+
           {/* 金額表示部分は削除しました */}
         </button>
       )}
@@ -124,12 +124,14 @@ const ItemPanel = (props: ItemProps) => {
         {amount.toLocaleString()}
         <span className='text-2xl ml-1 text-gray-400'>円</span>
       </p>
-      <div className="h-px w-full bg-gray-100 my-2"></div>
+      <div className='h-px w-full bg-gray-100 my-2'></div>
       {title && <p className='text-lg font-bold leading-6 text-gray-700'>{title}</p>}
-      
-      <Modal 
-        button={<span className='border-b border-pink-300 text-pink-500 font-bold'>もっと見る</span>}
-        cName="w-fit text-left p-1 hover:opacity-70 transition-opacity"
+
+      <Modal
+        button={
+          <span className='border-b border-pink-300 text-pink-500 font-bold'>もっと見る</span>
+        }
+        cName='w-fit text-left p-1 hover:opacity-70 transition-opacity'
       >
         <div className='flex flex-col gap-4 p-2' id={id}>
           {img && <Img src={img} />}
@@ -138,15 +140,21 @@ const ItemPanel = (props: ItemProps) => {
             <span className='text-2xl ml-1'>円</span>
           </p>
           {title && <p className='text-xl font-bold text-gray-700'>{title}</p>}
-          <div className="text-gray-600 leading-7">{detail}</div>
+          <div className='text-gray-600 leading-7'>{detail}</div>
           <div className='flex flex-col pt-4 gap-2 bg-blue-50 p-4 rounded-xl'>
             <p className='flex text-sm text-gray-600'>
-              <FaUser className="text-blue-400" style={{ transform: 'translateY(3px)', marginRight: '6px' }} />
-              現在の支援者：<span className="font-bold ml-1">{supporterCount}</span>人
+              <FaUser
+                className='text-blue-400'
+                style={{ transform: 'translateY(3px)', marginRight: '6px' }}
+              />
+              現在の支援者：<span className='font-bold ml-1'>{supporterCount}</span>人
             </p>
             <p className='flex text-sm text-gray-600'>
-              <GiPresent className="text-pink-400" style={{ transform: 'translateY(3px)', marginRight: '6px' }} />
-              お届け予定：<span className="font-bold ml-1">{date}</span>
+              <GiPresent
+                className='text-pink-400'
+                style={{ transform: 'translateY(3px)', marginRight: '6px' }}
+              />
+              お届け予定：<span className='font-bold ml-1'>{date}</span>
             </p>
           </div>
         </div>
@@ -162,14 +170,14 @@ const ItemPanel = (props: ItemProps) => {
           お届け予定：{date}
         </p>
       </div>
-      <div className="mt-auto pt-4">
+      <div className='mt-auto pt-4'>
         <Select
           id={id}
           options={maxCount.map((count) => {
             return { value: count, label: `${count}個` } as Options
           })}
           onChange={onChange}
-          className="w-full bg-pink-50 border-pink-200 text-gray-700 rounded-xl"
+          className='w-full bg-pink-50 border-pink-200 text-gray-700 rounded-xl'
         />
       </div>
     </div>
