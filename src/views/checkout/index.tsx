@@ -12,20 +12,20 @@ import { PaymentElement, useStripe, useElements, AddressElement } from '@stripe/
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { contact, email, name } from '@/components/schema'
-import { init, send } from '@emailjs/browser'
 import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '@/templates/form/TextFieldForm'
 import { TextAreaForm } from '@/templates/form/TextAreaForm'
-import { CloudRequest, useCloudFundApi } from '@/api/cloudApi'
+import { useCloudFundApi } from '@/api/cloudApi'
 import { Button } from '@/components/Button'
 import { Modal } from '@/components/Modal'
-import Link from 'next/link'
+import { useCheckoutPresenter } from '@/presenter/checkoutPreseter'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
 export const CheckoutView = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
   const stored = useStore('return-items').getItem()
+  const router = useRouter()
 
   useEffect(() => {
     const items = stored ? (JSON.parse(stored) as ItemContent[]) : []
@@ -52,9 +52,15 @@ export const CheckoutView = () => {
           loop
           autoplay
         />
-        <Link href='/'>
-          <div className='text-2xl bg-primary p-4 rounded-full font-bold w-5/6'>トップに戻る</div>
-        </Link>
+        <Button
+          type='button'
+          className='bg-gray-500 hover:bg-gray-400 text-white items-center'
+          onClick={() => {
+            router.back()
+          }}
+        >
+          戻る
+        </Button>
       </div>
     )
 
@@ -107,15 +113,12 @@ const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
   const { addFund } = useCloudFundApi()
-  const stored = useStore('return-items').getItem()
+
   const router = useRouter()
+  const { sendNotification, setNotice, sendEmail, setSending, request } = useCheckoutPresenter()
 
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const [sending, setSending] = useState<boolean>(false)
-  const [notice, setNotice] = useState<boolean>(false)
-
-  const items = JSON.parse(stored!) as ItemContent[]
 
   const PersonSchema = z.object({
     name: name,
@@ -124,22 +127,6 @@ const CheckoutForm = () => {
   })
 
   type PersonType = z.infer<typeof PersonSchema>
-
-  const sendNotification = async (data: CloudRequest) => {
-    init('IdTWr2VgMdRiCW1AG')
-    if (!notice) {
-      setNotice(true)
-      await send('service_cloudfunding', 'cloud-fund-notification', data)
-    }
-  }
-
-  const sendEmail = async (data: CloudRequest) => {
-    init('IdTWr2VgMdRiCW1AG')
-    if (!sending) {
-      setSending(true)
-      await send('service_cloudfunding', 'cloud-fund-rara', data)
-    }
-  }
 
   const {
     watch,
@@ -152,46 +139,32 @@ const CheckoutForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const { name, email, content } = watch()
+    const data = request(watch())
     setLoading(true)
     setErrorMessage(null)
 
-    const request: CloudRequest = {
-      name: name,
-      email: email,
-      content: content,
-      product1: items.find((item) => item.id === '1')?.count.toString() ?? '0',
-      product2: items.find((item) => item.id === '2')?.count.toString() ?? '0',
-      product3: items.find((item) => item.id === '3')?.count.toString() ?? '0',
-      product4: items.find((item) => item.id === '4')?.count.toString() ?? '0',
-      product5: items.find((item) => item.id === '5')?.count.toString() ?? '0',
-    }
-
     if (!stripe || !elements) return
 
-    await sendNotification(request).then(async () => {
+    await sendNotification(data).then(async () => {
       try {
-        await addFund.mutateAsync(request)
+        await addFund.mutateAsync(data)
       } catch (e) {
         console.error(e)
       }
       setNotice(false)
-
-      const { error } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: `${window.location.origin}/success`,
-        },
+      await sendEmail(data).then(async () => {
+        setSending(false)
+        const { error } = await stripe.confirmPayment({
+          elements,
+          confirmParams: {
+            return_url: `${window.location.origin}/success`,
+          },
+        })
+        if (error) {
+          setErrorMessage(error.message || 'エラーが発生しました')
+          setLoading(false)
+        }
       })
-
-      if (error) {
-        setErrorMessage(error.message || 'エラーが発生しました')
-        setLoading(false)
-        return
-      }
-
-      await sendEmail(request)
-      setSending(false)
     })
   }
 
