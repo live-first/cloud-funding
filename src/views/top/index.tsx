@@ -11,7 +11,7 @@ import { RiMoneyCnyCircleFill } from 'react-icons/ri'
 import { FaUsers } from 'react-icons/fa6'
 import { FaClock, FaLink } from 'react-icons/fa'
 import Link from 'next/link'
-import { homePresenter } from '@/presenter/homePresenter'
+import { useHomePresenter } from '@/presenter/homePresenter'
 
 export const TopView = () => {
   return (
@@ -23,7 +23,7 @@ export const TopView = () => {
 }
 
 const SummaryView = () => {
-  const { grandTotal, supporterTotal } = homePresenter()
+  const { grandTotal, supporterTotal } = useHomePresenter()
   // 目標金額
   const goal = 10000000
   // 現在の支援総額

@@ -3,8 +3,7 @@
 import { CloudFundResponseType, useCloudFundApi } from '@/api/cloudApi'
 import { returnItems } from '@/data/items/returnItems'
 
-export const homePresenter = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const useHomePresenter = () => {
   const { getCloudFund } = useCloudFundApi()
   const res = getCloudFund.data?.data as CloudFundResponseType[]
 
