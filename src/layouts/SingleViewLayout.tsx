@@ -26,6 +26,7 @@ export const SingleViewLayout = (props: LayoutProps) => {
         {bottomView}
       </main>
       <footer>{footer}</footer>
+      <div className='fixed top-2 bg-amber-300 font-bold px-12 -rotate-12'>デモ表示中</div>
     </div>
   )
 }
