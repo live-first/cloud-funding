@@ -20,18 +20,19 @@ export type ItemContent = {
 export const ReturnView = () => {
   const [items, setItems] = useState<ItemContent[]>()
   const [show, setShow] = useState<boolean>(false)
-  const [total, setTotal] = useState<number>(0)
+  // const [total, setTotal] = useState<number>(0)
   const router = useRouter()
   const store = useStore('return-items')
   const { res } = useHomePresenter()
 
   useEffect(() => {
     setShow(items ? items.length !== 0 : false)
-    const totalAmount =
-      items?.reduce((sum, item) => {
-        return sum + item.amount * Number(item.count)
-      }, 0) ?? 0
-    setTotal(totalAmount)
+    // 合計金額は表示しない
+    // const totalAmount =
+    //   items?.reduce((sum, item) => {
+    //     return sum + item.amount * Number(item.count)
+    //   }, 0) ?? 0
+    // setTotal(totalAmount)
   }, [items, items?.length])
 
   const onChangeHandler = (id: string, count: string, amount: number) => {
