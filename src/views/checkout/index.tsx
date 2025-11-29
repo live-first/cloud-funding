@@ -18,6 +18,7 @@ import { TextFieldForm } from '@/templates/form/TextFieldForm'
 import { TextAreaForm } from '@/templates/form/TextAreaForm'
 import { CloudRequest, useCloudFundApi } from '@/api/cloudApi'
 import { Button } from '@/components/Button'
+import { Modal } from '@/components/Modal'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
@@ -210,22 +211,43 @@ const CheckoutForm = () => {
       {errorMessage && <p className='text-red-600 text-sm mt-2'>{errorMessage}</p>}
 
       <div className='flex flex-col gap-4 pt-4'>
-        <Button
+        <Modal
+          button={loading ? '処理中…' : '支払う'}
           variant='Primary'
-          label={loading ? '処理中…' : '支払う'}
           type='submit'
           disabled={!stripe || loading || !isValid || isSubmitting}
           className='text-center items-center'
-        />
+          overlay={false}
+          hideCloseBottomBtn
+        >
+          <LodingModal />
+        </Modal>
         <Button
-          label='戻る'
           type='button'
           className='bg-gray-500 hover:bg-gray-400 text-white items-center'
           onClick={() => {
             router.back()
           }}
-        />
+        >
+          戻る
+        </Button>
       </div>
     </form>
+  )
+}
+
+const LodingModal = () => {
+  return (
+    <div className='flex flex-col'>
+      <DotLottieReact
+        src='https://lottie.host/984fe129-736c-4a1b-8f4d-ad453f2f0592/P9QyOrV7jH.lottie'
+        loop
+        autoplay
+      />
+      <div className='flex flex-col items-center'>
+        <p className='font-bold text-xl'>決済処理中</p>
+        <p>画面を閉じないでください</p>
+      </div>
+    </div>
   )
 }

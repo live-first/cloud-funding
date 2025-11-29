@@ -118,7 +118,7 @@ const ItemPanel = (props: ItemProps) => {
   const { id, img, amount, title, detail, date, supporterCount, maxCount, onChange } = props
 
   const DetailButton = () => {
-    return <div className='p-1 text-cyan-800'>詳細はこちら</div>
+    return <div className='p-1 text-cyan-800 text-sm'>詳細はこちら</div>
   }
 
   return (
@@ -128,7 +128,7 @@ const ItemPanel = (props: ItemProps) => {
         <span className='text-2xl ml-1'>円</span>
       </p>
       {title && <p className='text-lg font-bold leading-5'>{title}</p>}
-      <Modal button={<DetailButton />}>
+      <Modal button={<DetailButton />} cName='text-center items-center'>
         <div className='flex flex-col gap-2' id={id}>
           {img && <Img src={img} />}
           <p className='font-bold text-gray-800 text-4xl'>

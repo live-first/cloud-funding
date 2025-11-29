@@ -1,9 +1,9 @@
+import { PropsWithChildren } from 'react'
 import { cn } from '../utils'
 import './button.css'
 
-type ButtonProps = {
+export type ButtonProps = {
   variant?: 'Primary' | 'Secondary' | 'Tertiary'
-  label: string
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
   className?: string
@@ -11,15 +11,15 @@ type ButtonProps = {
   onClick?: () => void
 }
 
-export const Button = (props: ButtonProps) => {
+export const Button = (props: PropsWithChildren<ButtonProps>) => {
   const {
     variant,
-    label,
     size = 'md',
     disabled = false,
     className,
     type,
     onClick,
+    children
   } = props
   return (
     <button
@@ -31,7 +31,7 @@ export const Button = (props: ButtonProps) => {
       type={type}
       onClick={onClick}
     >
-      {label}
+      {children}
     </button>
   )
 }
