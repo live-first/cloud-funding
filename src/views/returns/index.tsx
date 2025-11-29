@@ -84,7 +84,7 @@ export const ReturnView = () => {
               detail={item.detail}
               date={item.date}
               supporterCount={res?.find((r) => r.id === item.id)?.supporterCount}
-              maxCount={[1, 2, 3, 4, 5]}
+              maxCount={item.maxCount}
               onChange={(e) => {
                 onChangeHandler(item.id, e.target.value, item.amount)
               }}

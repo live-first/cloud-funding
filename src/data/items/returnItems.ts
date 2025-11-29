@@ -5,6 +5,7 @@ export type ReturnItemType = {
   title?: string
   detail: string
   date?: string
+  maxCount: number[]
 }
 
 /**
@@ -18,6 +19,7 @@ export const returnItems: ReturnItemType[] = [
     title: 'オンライントーク3分',
     detail: 'オンラインでトークを実施します。',
     date: '2026年1月中',
+    maxCount: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
   {
     id: '2',
@@ -26,6 +28,7 @@ export const returnItems: ReturnItemType[] = [
     title: '20秒動画+チェキ1枚',
     detail: '券をお渡しします。他メンバーに変更可能です。',
     date: '2026年1月中',
+    maxCount: [1, 2, 3, 4, 5, 6],
   },
   {
     id: '3',
@@ -34,6 +37,7 @@ export const returnItems: ReturnItemType[] = [
     title: 'お礼動画+20秒動画+チェキ券5枚',
     detail: 'チェキ券の使用は他メンバーでも可能です。',
     date: '2026年1月中',
+    maxCount: [1, 2, 3],
   },
   {
     id: '4',
@@ -42,6 +46,7 @@ export const returnItems: ReturnItemType[] = [
     title: 'プリ同+私物サイン+チェキ券15枚',
     detail: 'チェキ券の使用は他メンバーでも可能です。',
     date: '2026年1月中',
+    maxCount: [1],
   },
   {
     id: '5',
@@ -50,5 +55,6 @@ export const returnItems: ReturnItemType[] = [
     title: '都内2時間個別オフ会+宿題チェキ券1枚+お手紙+チェキ券30枚',
     detail: 'チェキ券の使用は他メンバーでも可能です。',
     date: '2026年1月中',
+    maxCount: [1],
   },
 ]
