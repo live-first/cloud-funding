@@ -109,6 +109,7 @@ const CheckoutForm = () => {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [sending, setSending] = useState<boolean>(false)
+  const [notice, setNotice] = useState<boolean>(false)
 
   const items = JSON.parse(stored!) as ItemContent[]
 
@@ -120,11 +121,19 @@ const CheckoutForm = () => {
 
   type PersonType = z.infer<typeof PersonSchema>
 
+  const sendNotification = async (data: CloudRequest) => {
+    init('IdTWr2VgMdRiCW1AG')
+    if (!notice) {
+      setNotice(true)
+      await send('service_cloudfunding', 'cloud-fund-notification', data)
+    }
+  }
+
   const sendEmail = async (data: CloudRequest) => {
     init('IdTWr2VgMdRiCW1AG')
     if (!sending) {
       setSending(true)
-      await send('service_livefirst', 'cloud-fund-notification', data)
+      await send('service_cloudfunding', 'cloud-fund-rara', data)
     }
   }
 
@@ -156,13 +165,13 @@ const CheckoutForm = () => {
 
     if (!stripe || !elements) return
 
-    await sendEmail(request).then(async () => {
+    await sendNotification(request).then(async () => {
       try {
         await addFund.mutateAsync(request)
       } catch (e) {
         console.error(e)
       }
-      setSending(false)
+      setNotice(false)
 
       const { error } = await stripe.confirmPayment({
         elements,
@@ -174,7 +183,11 @@ const CheckoutForm = () => {
       if (error) {
         setErrorMessage(error.message || 'エラーが発生しました')
         setLoading(false)
+        return
       }
+
+      await sendEmail(request)
+      setSending(false)
     })
   }
 
