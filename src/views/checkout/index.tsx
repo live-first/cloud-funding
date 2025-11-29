@@ -19,6 +19,7 @@ import { TextAreaForm } from '@/templates/form/TextAreaForm'
 import { CloudRequest, useCloudFundApi } from '@/api/cloudApi'
 import { Button } from '@/components/Button'
 import { Modal } from '@/components/Modal'
+import Link from 'next/link'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
@@ -51,6 +52,9 @@ export const CheckoutView = () => {
           loop
           autoplay
         />
+        <Link href='/'>
+          <div className='text-2xl bg-primary p-4 rounded-full font-bold w-5/6'>トップに戻る</div>
+        </Link>
       </div>
     )
 
