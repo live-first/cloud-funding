@@ -13,7 +13,7 @@ type ButtonProps = {
 
 export const Button = (props: ButtonProps) => {
   const {
-    variant = 'Primary',
+    variant,
     label,
     size = 'md',
     disabled = false,

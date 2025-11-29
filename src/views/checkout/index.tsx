@@ -17,13 +17,13 @@ import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '@/templates/form/TextFieldForm'
 import { TextAreaForm } from '@/templates/form/TextAreaForm'
 import { CloudRequest, useCloudFundApi } from '@/api/cloudApi'
+import { Button } from '@/components/Button'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
 export const CheckoutView = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null)
   const stored = useStore('return-items').getItem()
-  const router = useRouter()
 
   useEffect(() => {
     const items = stored ? (JSON.parse(stored) as ItemContent[]) : []
@@ -58,16 +58,6 @@ export const CheckoutView = () => {
       <div className='pb-12'>
         <SummaryPanel />
         <CheckoutForm />
-        <div className='max-w-md mx-auto p-4 space-y-4'>
-          <button
-            className='bg-gray-500 hover:bg-gray-400 text-white py-2 w-full rounded'
-            onClick={() => {
-              router.back()
-            }}
-          >
-            戻る
-          </button>
-        </div>
       </div>
     </Elements>
   )
@@ -113,9 +103,11 @@ const CheckoutForm = () => {
   const elements = useElements()
   const { addFund } = useCloudFundApi()
   const stored = useStore('return-items').getItem()
+  const router = useRouter()
 
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [sending, setSending] = useState<boolean>(false)
 
   const items = JSON.parse(stored!) as ItemContent[]
 
@@ -129,13 +121,16 @@ const CheckoutForm = () => {
 
   const sendEmail = async (data: CloudRequest) => {
     init('IdTWr2VgMdRiCW1AG')
-    await send('service_livefirst', 'cloud-fund-notification', data)
+    if (!sending) {
+      setSending(true)
+      await send('service_livefirst', 'cloud-fund-notification', data)
+    }
   }
 
   const {
     watch,
     register,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitting },
   } = useForm<PersonType>({
     mode: 'onChange',
     resolver: zodResolver(PersonSchema),
@@ -166,6 +161,7 @@ const CheckoutForm = () => {
       } catch (e) {
         console.error(e)
       }
+      setSending(false)
 
       const { error } = await stripe.confirmPayment({
         elements,
@@ -185,9 +181,9 @@ const CheckoutForm = () => {
     <form onSubmit={handleSubmit} className='max-w-md mx-auto p-4 space-y-4'>
       <h2 className='text-xl font-bold'>お客さま情報</h2>
       <TextFieldForm
-        title='名前'
+        title='名前（ニックネーム）'
         required
-        placeholder='山田　太郎'
+        placeholder='来桜'
         register={register('name')}
         error={errors.name?.message}
       />
@@ -213,13 +209,23 @@ const CheckoutForm = () => {
 
       {errorMessage && <p className='text-red-600 text-sm mt-2'>{errorMessage}</p>}
 
-      <button
-        type='submit'
-        disabled={!stripe || loading}
-        className='w-full bg-blue-600 text-white py-2 rounded mt-4'
-      >
-        {loading ? '処理中…' : '支払う'}
-      </button>
+      <div className='flex flex-col gap-4 pt-4'>
+        <Button
+          variant='Primary'
+          label={loading ? '処理中…' : '支払う'}
+          type='submit'
+          disabled={!stripe || loading || !isValid || isSubmitting}
+          className='text-center items-center'
+        />
+        <Button
+          label='戻る'
+          type='button'
+          className='bg-gray-500 hover:bg-gray-400 text-white items-center'
+          onClick={() => {
+            router.back()
+          }}
+        />
+      </div>
     </form>
   )
 }
