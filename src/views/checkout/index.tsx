@@ -179,6 +179,8 @@ const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
   const { addFund } = useCloudFundApi()
+  const router = useRouter()
+  const [open, setOpen] = useState<boolean>(false)
 
   const { sendNotification, setNotice, sendEmail, setSending, request } = useCheckoutPresenter()
 
@@ -211,25 +213,30 @@ const CheckoutForm = () => {
     if (!stripe || !elements) return
 
     await sendNotification(data).then(async () => {
-      try {
-        await addFund.mutateAsync(data)
-      } catch (e) {
-        console.error(e)
-      }
       setNotice(false)
-      await sendEmail(data).then(async () => {
-        setSending(false)
-        const { error } = await stripe.confirmPayment({
-          elements,
-          confirmParams: {
-            return_url: `${window.location.origin}/success`,
-          },
-        })
-        if (error) {
-          setErrorMessage(error.message || 'エラーが発生しました')
-          setLoading(false)
-        }
+      const { paymentIntent, error } = await stripe.confirmPayment({
+        elements,
+        redirect: 'if_required',
       })
+
+      if (error) {
+        setErrorMessage(error.message || 'エラーが発生しました')
+        setLoading(false)
+        setOpen(false)
+        return
+      }
+
+      if (paymentIntent!.status == 'succeeded') {
+        try {
+          await addFund.mutateAsync(data)
+        } catch (e) {
+          console.error(e)
+        }
+        await sendEmail(data).then(() => {
+          setSending(false)
+          router.push('/success')
+        })
+      }
     })
   }
 
@@ -293,12 +300,13 @@ const CheckoutForm = () => {
               </div>
             )
           }
-          variant='Primary'
           type='submit'
           disabled={!stripe || loading || !isValid || isSubmitting}
           className='text-center items-center bg-gradient-to-r from-pink-400 to-blue-300 hover:from-pink-500 hover:to-blue-400 text-white font-bold py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center gap-2 mt-4'
           overlay={false}
           hideCloseBottomBtn
+          isOpen={open}
+          onOpenChange={setOpen}
         >
           <LodingModal />
         </Modal>
