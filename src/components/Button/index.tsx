@@ -24,7 +24,7 @@ export const Button = (props: PropsWithChildren<ButtonProps>) => {
   return (
     <button
       className={cn(
-        `button-${size} button-${variant} rounded-md text-white p-3 w-full button flex flex-col`,
+        `button-${size} button-${variant} rounded-md text-white p-3 button flex flex-col`,
         className,
       )}
       disabled={disabled}

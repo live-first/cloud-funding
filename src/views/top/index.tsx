@@ -59,7 +59,7 @@ export const TopView = () => {
 const SummaryView = () => {
   const { grandTotal, supporterTotal } = useHomePresenter()
   // 目標金額
-  const goal = 10000000
+  const goal = 6000000
   // 現在の支援総額
   const current = grandTotal
   // 支援者数

@@ -83,7 +83,7 @@ export const CheckoutView = () => {
           />
           <Button
             type='button'
-            className='bg-gray-500 hover:bg-gray-400 text-white items-center'
+            className='bg-gray-500 hover:bg-gray-400 text-white items-center w-full'
             onClick={() => {
               router.push('/')
             }}
