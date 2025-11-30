@@ -174,6 +174,7 @@ const ItemPanel = (props: ItemProps) => {
           })}
           onChange={onChange}
           className='w-full bg-pink-50 border-pink-200 text-gray-700 rounded-xl'
+          disabled
         />
       </div>
     </div>
