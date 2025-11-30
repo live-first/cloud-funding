@@ -52,7 +52,8 @@ export const TopView = () => {
 }
 
 const SummaryView = () => {
-  const { goal, grandTotal, supporterTotal, restDay, isClosedProject } = useHomePresenter()
+  const { goal, grandTotal, supporterTotal, restDay, isBeforeStart, isClosedProject } =
+    useHomePresenter()
 
   const rate = grandTotal / goal
   const viewRate = (rate * 100).toFixed(1)
@@ -137,6 +138,11 @@ const SummaryView = () => {
         {isClosedProject && (
           <div className='flex flex-col w-full py-2 bg-gray-400 text-white font-bold items-center rounded-lg'>
             本プロジェクトは終了しました
+          </div>
+        )}
+        {isBeforeStart && (
+          <div className='flex flex-col w-full py-2 bg-pink-400 text-white font-bold items-center text-center rounded-lg'>
+            本プロジェクトは開始前です<br />2025年12月12日(金)18時開始
           </div>
         )}
 

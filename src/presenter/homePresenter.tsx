@@ -2,7 +2,6 @@
 
 import { CloudFundResponseType, useCloudFundApi } from '@/api/cloudApi'
 import { returnItems } from '@/data/items/returnItems'
-import { formatDate } from '@/utils/stringUtils'
 
 export const useHomePresenter = () => {
   const { getCloudFund } = useCloudFundApi()
@@ -33,23 +32,27 @@ export const useHomePresenter = () => {
   const grandTotal = result?.reduce((sum, item) => sum + item.total, 0) ?? 0
   // 支援者数
   const supporterTotal = result?.reduce((sum, item) => sum + item.supporter, 0) ?? 0
-  // 締切日時
-  const deadline = new Date(2026, 0, 12, 22, 0, 0)
-  console.log(
-    `開催終了日：${formatDate(`${deadline.toUTCString()}`, 'YYYY年MM月DD日 hh時mm分ss秒')}`,
-  )
+  // プロジェクト開始日時
+  const startDate = new Date(2025, 11, 12, 18, 0, 0)
+  // プロジェクト終了日時
+  const endDate = new Date(2026, 0, 12, 22, 0, 0)
+  // 現在日時
   const now = new Date()
   // 残り何日
-  const restDay = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
-  // 終了している
-  const isClosedProject = restDay < 0
+  const restDay = Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+  // 開始前
+  const isBeforeStart = now < startDate
+  // 終了後
+  const isClosedProject = endDate < now
 
   return {
     goal,
     grandTotal,
     supporterTotal,
-    deadline,
+    startDate,
+    endDate,
     restDay,
+    isBeforeStart,
     isClosedProject,
     res,
     isLoading, // 返り値に追加

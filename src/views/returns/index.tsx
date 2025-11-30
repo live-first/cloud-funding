@@ -23,7 +23,7 @@ export const ReturnView = () => {
   // const [total, setTotal] = useState<number>(0)
   const router = useRouter()
   const store = useStore('return-items')
-  const { res } = useHomePresenter()
+  const { res, isBeforeStart, isClosedProject } = useHomePresenter()
 
   useEffect(() => {
     setShow(items ? items.length !== 0 : false)
@@ -89,6 +89,7 @@ export const ReturnView = () => {
               onChange={(e) => {
                 onChangeHandler(item.id, e.target.value, item.amount)
               }}
+              disabled={isBeforeStart || isClosedProject}
             />
           )
         })}
@@ -109,10 +110,12 @@ type ItemProps = {
   supporterCount?: number
   maxCount: number[]
   onChange: ChangeEventHandler<HTMLSelectElement>
+  disabled?: boolean
 } & ReturnItemType
 
 const ItemPanel = (props: ItemProps) => {
-  const { id, img, amount, title, detail, date, supporterCount, maxCount, onChange } = props
+  const { id, img, amount, title, detail, date, supporterCount, maxCount, onChange, disabled } =
+    props
 
   return (
     <div className='flex flex-col gap-2 bg-white w-full rounded-3xl p-6 shadow-lg border border-pink-100 hover:shadow-2xl transition-shadow'>
@@ -174,7 +177,7 @@ const ItemPanel = (props: ItemProps) => {
           })}
           onChange={onChange}
           className='w-full bg-pink-50 border-pink-200 text-gray-700 rounded-xl'
-          disabled
+          disabled={disabled}
         />
       </div>
     </div>
