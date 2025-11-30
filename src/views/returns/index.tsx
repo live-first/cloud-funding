@@ -95,14 +95,10 @@ export const ReturnView = () => {
       </div>
       {show && (
         <button
-          // justify-between を justify-center に変更して中央寄せ
           className='fixed bottom-6 w-11/12 md:w-8/12 px-4 md:px-12 bg-gradient-to-r from-pink-400 to-blue-300 hover:from-pink-500 hover:to-blue-400 shadow-xl shadow-pink-200 rounded-full h-[80px] flex justify-center items-center text-white transition-all duration-300 transform hover:scale-105 z-50'
           onClick={onClickHandler}
         >
-          {/* 文言を「支援する」に変更し、サイズを調整 */}
           <p className='text-xl md:text-3xl font-bold whitespace-nowrap'>支援する</p>
-
-          {/* 金額表示部分は削除しました */}
         </button>
       )}
     </div>

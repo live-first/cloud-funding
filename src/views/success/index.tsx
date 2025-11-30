@@ -12,6 +12,7 @@ export const SuccessView = () => {
   // 完了画面が表示されたらカートを空にする
   useEffect(() => {
     store.clearItem()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
