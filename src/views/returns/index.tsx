@@ -139,7 +139,12 @@ const ItemPanel = (props: ItemProps) => {
             <span className='text-2xl ml-1'>円</span>
           </p>
           {title && <p className='text-xl font-bold text-gray-700'>{title}</p>}
-          <div className='text-gray-600 leading-7'>{detail}</div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `${detail}`,
+            }}
+            className='text-gray-600 leading-7'
+          />
           <div className='flex flex-col pt-4 gap-2 bg-blue-50 p-4 rounded-xl'>
             <p className='flex text-sm text-gray-600'>
               <FaUser
