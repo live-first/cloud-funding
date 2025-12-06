@@ -33,7 +33,7 @@ export const useHomePresenter = () => {
   // 支援者数
   const supporterTotal = result?.reduce((sum, item) => sum + item.supporter, 0) ?? 0
   // プロジェクト開始日時
-  const startDate = new Date(2025, 10, 12, 18, 0, 0)
+  const startDate = new Date(2025, 11, 12, 18, 0, 0)
   // プロジェクト終了日時
   const endDate = new Date(2026, 0, 12, 22, 0, 0)
   // 現在日時
