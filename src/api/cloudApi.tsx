@@ -15,6 +15,7 @@ export type CloudRequest = {
   product3: string
   product4: string
   product5: string
+  product6: string
   name: string
   email: string
   content: string
@@ -37,7 +38,7 @@ export const useCloudFundApi = () => {
       return axios.post(
         URL,
         encodeURI(
-          `name=${data.name}&email=${data.email}&content=${data.content}&product1=${data.product1}&product2=${data.product2}&product3=${data.product3}&product4=${data.product4}&product5=${data.product5}`,
+          `name=${data.name}&email=${data.email}&content=${data.content}&product1=${data.product1}&product2=${data.product2}&product3=${data.product3}&product4=${data.product4}&product5=${data.product5}&product6=${data.product6}`,
         ),
         {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

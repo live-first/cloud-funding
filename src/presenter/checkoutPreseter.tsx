@@ -46,6 +46,7 @@ export const useCheckoutPresenter = () => {
       product3: items.find((item) => item.id === '3')?.count.toString() ?? '0',
       product4: items.find((item) => item.id === '4')?.count.toString() ?? '0',
       product5: items.find((item) => item.id === '5')?.count.toString() ?? '0',
+      product6: items.find((item) => item.id === '6')?.count.toString() ?? '0',
     }
   }
 
