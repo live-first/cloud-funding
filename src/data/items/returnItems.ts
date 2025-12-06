@@ -17,7 +17,7 @@ export const returnItems: ReturnItemType[] = [
     img: undefined,
     amount: 3000,
     title: 'オンライントーク3分',
-    detail: 'オンラインでトークを実施します。',
+    detail: 'オンラインでトークを実施します。Zoomで実施予定です。',
     date: '2026年1月中',
     maxCount: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
@@ -26,7 +26,8 @@ export const returnItems: ReturnItemType[] = [
     img: undefined,
     amount: 5000,
     title: '20秒動画+チェキ1枚',
-    detail: '券をお渡しします。他メンバーに変更可能です。',
+    detail:
+      '券をお渡しします。他メンバーに変更可能です。オフ会でチェキ券の使用が可能です。また、デビューしたアイドルの物販時に状況を見て使用が可能です。',
     date: '2026年1月中',
     maxCount: [1, 2, 3, 4, 5, 6],
   },
@@ -35,7 +36,8 @@ export const returnItems: ReturnItemType[] = [
     img: undefined,
     amount: 10000,
     title: 'お礼動画+20秒動画+チェキ券5枚',
-    detail: 'チェキ券の使用は他メンバーでも可能です。',
+    detail:
+      'チェキ券の使用は他メンバーでも可能です。オフ会でチェキ券の使用が可能です。また、デビューしたアイドルの物販時に状況を見て使用が可能です。',
     date: '2026年1月中',
     maxCount: [1, 2, 3],
   },
@@ -44,7 +46,8 @@ export const returnItems: ReturnItemType[] = [
     img: undefined,
     amount: 50000,
     title: 'プリ同+私物サイン+チェキ券15枚',
-    detail: 'チェキ券の使用は他メンバーでも可能です。',
+    detail:
+      'チェキ券の使用は他メンバーでも可能です。オフ会でチェキ券の使用が可能です。また、デビューしたアイドルの物販時に状況を見て使用が可能です。',
     date: '2026年1月中',
     maxCount: [1],
   },
@@ -53,7 +56,8 @@ export const returnItems: ReturnItemType[] = [
     img: undefined,
     amount: 100000,
     title: '都内2時間個別オフ会+宿題チェキ券1枚+お手紙+チェキ券30枚',
-    detail: 'チェキ券の使用は他メンバーでも可能です。',
+    detail:
+      'チェキ券の使用は他メンバーでも可能です。オフ会でチェキ券の使用が可能です。また、デビューしたアイドルの物販時に状況を見て使用が可能です。',
     date: '2026年1月中',
     maxCount: [1],
   },
