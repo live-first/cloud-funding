@@ -3,12 +3,12 @@
 :root {
   --background: #fffbfd;
   --foreground: #5a5a5a;
-  
+
   --default: #ffb7c5;
   --primary: #ff9ebb;
   --secondary: #a2d2ff;
   --tertiary: #cdb4db;
-  
+
   --disable: #e5e7eb;
 }
 
@@ -16,7 +16,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-noto-sans-jp), Arial, Helvetica, sans-serif;
-  --font-mono: var(--font-geist-mono); 
+  --font-mono: var(--font-geist-mono);
   --color-default: var(--default);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);

@@ -1,4 +1,5 @@
 import { SingleViewLayout } from '@/layouts/SingleViewLayout'
+import { Footer } from '@/views/footer'
 import { Header } from '@/views/header'
 import { OutlineView } from '@/views/outline'
 import { ReturnView } from '@/views/returns'
@@ -11,6 +12,7 @@ export default function Home() {
       allView={<TopView />}
       main={<OutlineView />}
       bottomView={<ReturnView />}
+      footer={<Footer />}
     />
   )
 }
