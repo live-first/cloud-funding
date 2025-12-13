@@ -20,6 +20,7 @@ import { useCheckoutPresenter } from '@/presenter/checkoutPreseter'
 import { useCloudFundApi } from '@/api/cloudApi'
 import { FaShieldAlt } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!)
 
@@ -329,6 +330,9 @@ const LodingModal = () => {
       <div className='flex flex-col items-center'>
         <p className='font-bold text-xl'>決済処理中</p>
         <p>画面を閉じないでください</p>
+        <p>
+          銀行振込の方はメールを確認し、振込を完了させてください。<Link href='/'>閉じる</Link>
+        </p>
       </div>
     </div>
   )
