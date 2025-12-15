@@ -22,6 +22,7 @@ export const useHomePresenter = () => {
       amount,
       supporter: p.supporterCount,
       count: p.count,
+      supporterTotal: p.supporterTotal,
       total, // 売上金額
     }
   })
@@ -31,7 +32,7 @@ export const useHomePresenter = () => {
   // 支援総額
   const grandTotal = result?.reduce((sum, item) => sum + item.total, 0) ?? 0
   // 支援者数
-  const supporterTotal = result?.reduce((sum, item) => sum + item.supporter, 0) ?? 0
+  const supporterTotal = result ? result[0].supporterTotal : 0
   // プロジェクト開始日時
   const startDate = new Date(2025, 11, 12, 18, 0, 0)
   // プロジェクト終了日時

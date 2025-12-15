@@ -7,6 +7,7 @@ export type CloudFundResponseType = {
   id: string
   supporterCount: number
   count: number
+  supporterTotal: number
 }
 
 export type CloudRequest = {

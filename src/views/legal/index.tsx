@@ -28,7 +28,7 @@ export const LegalView = () => {
             </tr>
             <tr>
               <Th>メールアドレス</Th>
-              <Td>contact@live-first.info</Td>
+              <Td>support@live-first.info</Td>
             </tr>
             <tr>
               <Th>ホームページ</Th>
